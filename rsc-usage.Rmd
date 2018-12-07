@@ -35,7 +35,7 @@ The report uses the environment variables `RSTUDIO_CONNECT_SERVER` and `RSTUDIO_
 Column 
 -----------------------------------------------------------------------
 
-### Shiny Sessions by User (Top 10)
+### Shiny Sessions by User (Top 5)
 
 ```{r}
 data$shiny %>%
@@ -45,7 +45,7 @@ data$shiny %>%
            username = null_chars(username, "anonymous")) %>% 
     select(username, visits) %>% 
     arrange(desc(visits)) %>% 
-    head(10) %>% 
+    head(5) %>% 
     {ggplot(., aes(reorder(username, visits), visits)) + 
      geom_bar(stat = "identity") +  
      coord_flip() + 
@@ -58,7 +58,7 @@ data$shiny %>%
     config(displayModeBar = F)
 ```
 
-### Content Hits by User (Top 10)
+### Content Hits by User (Top 5)
 
 ```{r}
 data$content %>%
@@ -68,7 +68,7 @@ data$content %>%
            username = null_chars(username, "anonymous")) %>% 
     select(username, visits) %>% 
     arrange(desc(visits)) %>% 
-    head(10) %>% 
+    head(5) %>% 
     {ggplot(., aes(reorder(username, visits), visits)) + 
      geom_bar(stat = "identity") +  
      coord_flip() + 
@@ -100,7 +100,7 @@ data$shiny %>%
      geom_smooth(se = FALSE) +
      theme_rstudio() + 
      labs(
-       y = "Number of Shiny Sessions",
+       y = "# of Shiny Sessions",
        x = NULL
      )} %>% 
     ggplotly(tooltip = c("y")) %>% 
@@ -147,7 +147,7 @@ data$shiny %>%
      coord_flip() + 
      theme_rstudio() + 
      labs(
-       y = "Number of Shiny Sessions",
+       y = "# of Shiny Sessions",
        x = NULL
      )} %>% 
     ggplotly(tooltip = c("y")) %>% 
@@ -177,6 +177,31 @@ data$content %>%
 
 
 ```{r}
+content_summary <- data$content %>% 
+  group_by(content_guid) %>% 
+  summarize(visits = n()) %>% 
+  arrange(desc(visits)) %>% 
+  head() %>% 
+  mutate(name = sapply(content_guid, get_content_name))
+
+app_summary <- data$shiny %>% 
+  group_by(content_guid) %>% 
+  summarize(visits = n()) %>% 
+  arrange(desc(visits)) %>% 
+  head() %>% 
+  mutate(name = sapply(content_guid, get_content_name))
+
+leaderboard <- 
+  rbind(app_summary, content_summary) %>% 
+  ggplot(., aes(reorder(name, visits), visits)) + 
+     geom_bar(stat = "identity") +  
+     coord_flip() + 
+     theme_rstudio() + 
+     labs(
+       y = "Visits",
+       x = NULL
+     )
+
 body <- compose_email(
   body = "
   Hi Data Science Team!
