@@ -6,7 +6,7 @@ distribute it via email (the email will include inline graphics!)
 
 Sample Report: http://colorado.rstudio.com/rsc/usage
 
-<image src="email-preview.png", width = "150px" height = "150px">
+<img src="email-preview.png", width = "150px" height = "150px">
 
 The report is generated using the [RStudio Connect Server API](https://docs.rstudio.com/connect/api). The `helpers.R` file contains example code for querying the various API endpoints. The API and data collection are both available as of RStudio Connect 1.7.0. The API contains data to help answer questions like:
 
