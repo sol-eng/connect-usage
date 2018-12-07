@@ -1,0 +1,198 @@
+---
+title: "RStudio Connect Usage - Last 30 Days"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    css: styles.css
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(dplyr)
+library(DT)
+library(plotly)
+library(ggplot2)
+library(shiny)
+library(lubridate)
+library(blastula)
+library(prettyunits)
+
+source("helpers.R")
+source("themes.R")
+shiny <- get_shiny_usage() %>% 
+    clean_data()
+content <- get_content_usage()
+data <-   list(shiny = shiny, content = content)
+
+```
+
+
+This content summary may contain privileged information. The report is generated using the [RStudio Connect Server API](https://docs.rstudio.com/connect/api) and the source code is [available online](https://github.com/sol-eng/rsc-usage) if you'd like to customize your analysis. Data is limited to the last 30 days.
+
+The report uses the environment variables `RSTUDIO_CONNECT_SERVER` and `RSTUDIO_CONNECT_API_KEY` to collect the data. To limit the results to a single publisher, use a publisher API key.
+
+Column 
+-----------------------------------------------------------------------
+
+### Shiny Sessions by User (Top 10)
+
+```{r}
+data$shiny %>%
+    group_by(user_guid) %>% 
+    summarise(visits = n()) %>% 
+    mutate(username = join_users(user_guid),
+           username = null_chars(username, "anonymous")) %>% 
+    select(username, visits) %>% 
+    arrange(desc(visits)) %>% 
+    head(10) %>% 
+    {ggplot(., aes(reorder(username, visits), visits)) + 
+     geom_bar(stat = "identity") +  
+     coord_flip() + 
+     theme_rstudio() + 
+     labs(
+       y = "Number of Shiny Sessions",
+       x = NULL
+     )} %>% 
+    ggplotly(tooltip = c("y")) %>% 
+    config(displayModeBar = F)
+```
+
+### Content Hits by User (Top 10)
+
+```{r}
+data$content %>%
+    group_by(user_guid) %>% 
+    summarise(visits = n()) %>% 
+    mutate(username = join_users(user_guid),
+           username = null_chars(username, "anonymous")) %>% 
+    select(username, visits) %>% 
+    arrange(desc(visits)) %>% 
+    head(10) %>% 
+    {ggplot(., aes(reorder(username, visits), visits)) + 
+     geom_bar(stat = "identity") +  
+     coord_flip() + 
+     theme_rstudio() +
+     labs(
+       y = "Number of Content Visits",
+       x = NULL
+     )} %>% 
+    ggplotly(tooltip = c("y")) %>% 
+    config(displayModeBar = F)
+```
+
+
+
+Column 
+-----------------------------------------------------------------------
+
+### Shiny Sessions Over Time
+
+```{r}
+data$shiny %>%
+    mutate(day = round_date(started, "day")) %>% 
+    group_by(day) %>% 
+    filter(day > today() - ddays(30)) %>% 
+    summarise(visits = n()) %>% 
+    arrange(desc(visits)) %>% 
+    {ggplot(., aes(day, visits)) + 
+     geom_point() +
+     geom_smooth(se = FALSE) +
+     theme_rstudio() + 
+     labs(
+       y = "Number of Shiny Sessions",
+       x = NULL
+     )} %>% 
+    ggplotly(tooltip = c("y")) %>% 
+    config(displayModeBar = F)
+```
+
+
+### Content Visits Over Time
+
+```{r}
+data$content %>%
+    mutate(time = ymd_hms(time),
+          day = round_date(time, "day")) %>% 
+    group_by(day) %>% 
+    filter(day > today() - ddays(30)) %>% 
+    summarise(visits = n()) %>% 
+    arrange(desc(visits)) %>% 
+    {ggplot(., aes(day, visits)) + 
+     geom_point() +
+     geom_smooth(se = FALSE) +
+     theme_rstudio() + 
+     labs(
+       y = "Content Hits",
+       x = NULL
+     )} %>% 
+    ggplotly(tooltip = c("y")) %>% 
+    config(displayModeBar = F)
+```
+
+Column 
+-----------------------------------------------------------------------
+
+### Top Applications
+
+```{r}
+data$shiny %>% 
+  group_by(content_guid) %>% 
+  summarize(visits = n()) %>% 
+  arrange(desc(visits)) %>% 
+  head() %>% 
+  mutate(name = sapply(content_guid, get_content_name)) %>% 
+  {ggplot(., aes(reorder(name, visits), visits)) + 
+     geom_bar(stat = "identity") +  
+     coord_flip() + 
+     theme_rstudio() + 
+     labs(
+       y = "Number of Shiny Sessions",
+       x = NULL
+     )} %>% 
+    ggplotly(tooltip = c("y")) %>% 
+    config(displayModeBar = F)
+```
+
+### Top Reports 
+
+```{r}
+data$content %>% 
+  group_by(content_guid) %>% 
+  summarize(visits = n()) %>% 
+  arrange(desc(visits)) %>% 
+  head() %>% 
+  mutate(name = sapply(content_guid, get_content_name)) %>% 
+  {ggplot(., aes(reorder(name, visits), visits)) + 
+     geom_bar(stat = "identity") +  
+     coord_flip() + 
+     theme_rstudio() + 
+     labs(
+       y = "Content Hits",
+       x = NULL
+     )} %>% 
+    ggplotly(tooltip = c("y")) %>% 
+    config(displayModeBar = F)
+```
+
+
+```{r}
+body <- compose_email(
+  body = "
+  Hi Data Science Team!
+  
+  Here is the top viewed content for the last 30 days:
+  
+  add_ggplot(leaderboard, width = 6, height = 6)
+  
+  Best,
+  
+  RStudio Connect
+  "
+)
+rmarkdown::output_metadata$set(
+  rsc_email_subject = sprintf(" Content Usage Report For %s", month(today(), label = TRUE, abbr = FALSE)),
+  rsc_email_body_html = body$html_str,
+  rsc_email_images = body$images
+)
+```

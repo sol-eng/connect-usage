@@ -1,0 +1,40 @@
+.navbar-inverse {
+  background-color:  #4c83b6;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #fff;
+}
+
+.value-box {
+  color: #fff;
+}
+
+.value-box {
+    font-family: "Raleway","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.value-box .icon i {
+    color: rgba(255,255,255, 0.25)
+}
+
+.body {
+    font-family: "Raleway","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.section.sidebar {
+  background-color: #fcfcfc;
+}
+
+.tooltip {	
+    position: absolute;			
+    text-align: center;			
+    width: 60px;					
+    height: 28px;					
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: lightsteelblue;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;			
+}
