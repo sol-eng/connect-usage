@@ -102,7 +102,7 @@ join_users <- function(user_guids) {
 get_shiny_usage <- function(content_guid = NA, 
                             from = lubridate::now() - lubridate::ddays(30)) {
   
-  endpoint <- "instrumentation/shiny/usage?min_data_version=0&limit=100"
+  endpoint <- "instrumentation/shiny/usage?limit=100"
   
   resp <- endpoint %>% 
     add_content_guid_filter(content_guid) %>% 
@@ -130,8 +130,7 @@ get_shiny_usage <- function(content_guid = NA,
   )
   # now step through the remaining pages
   while (!is.null(payload$paging[["next"]])) {
-    endpoint <- paste0(payload$paging[["next"]],"&min_data_version=0")
-    resp <- httr::GET(endpoint, connect_auth())
+    resp <- httr::GET(payload$paging[["next"]],  connect_auth())
     
     payload <- httr::content(resp)
     
@@ -160,7 +159,7 @@ get_content_name <- function(content_guid) {
 # get usage data for content, optionally filtering by content GUID and datetime
 get_content_usage <- function(content_guid = NA, 
                               from = lubridate::now() - lubridate::ddays(30)) {
-  endpoint <- "instrumentation/content/visits?min_data_version=0&limit=100"
+  endpoint <- "instrumentation/content/visits?limit=100"
   
   resp <- endpoint %>% 
     add_content_guid_filter(content_guid) %>% 
@@ -188,8 +187,7 @@ get_content_usage <- function(content_guid = NA,
   )
   # now step through the remaining pages
   while (!is.null(payload$paging[["next"]])) {
-    endpoint <- paste0(payload$paging[["next"]],"&min_data_version=0")
-    resp <- httr::GET(endpoint, connect_auth())
+    resp <- httr::GET(payload$paging[["next"]], connect_auth())
     
     payload <- httr::content(resp)
     

@@ -28,7 +28,7 @@ data <-   list(shiny = shiny, content = content)
 ```
 
 
-This content summary may contain privileged information. The report is generated using the [RStudio Connect Server API](https://docs.rstudio.com/connect/api) and the source code is [available online](https://github.com/sol-eng/rsc-usage) if you'd like to customize your analysis. Data is limited to the last 30 days.
+This content summary may contain privileged information. The report is generated using the [RStudio Connect Server API](http://docs.rstudio.com/connect/api) and the source code is [available online](https://github.com/sol-eng/rsc-usage) if you'd like to customize your analysis. Data is limited to the last 30 days.
 
 The report uses the environment variables `RSTUDIO_CONNECT_SERVER` and `RSTUDIO_CONNECT_API_KEY` to collect the data. To limit the results to a single publisher, use a publisher API key.
 
