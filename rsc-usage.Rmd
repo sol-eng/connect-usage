@@ -183,7 +183,7 @@ body <- compose_email(
   
   Here is the top viewed content for the last 30 days:
   
-  add_ggplot(leaderboard, width = 6, height = 6)
+  {add_ggplot(leaderboard, width = 6, height = 6)}
   
   Best,
   
