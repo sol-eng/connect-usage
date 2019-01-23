@@ -6,6 +6,27 @@ output:
     vertical_layout: fill
     css: styles.css
 ---
+```{r preflight_check, results='asis', include=TRUE}
+if (
+  nchar(Sys.getenv("RSTUDIO_CONNECT_SERVER")) == 0 &&
+  nchar(Sys.getenv("RSTUDIO_CONNECT_API_KEY")) == 0
+) {
+  print(htmltools::h4("ERROR: Variables Not Defined"))
+  print(htmltools::div(
+    "The RSTUDIO_CONNECT_SERVER and RSTUDIO_CONNECT_API_KEY",
+    "environment variables are required in order for this report",
+    "to pull usage data.",
+    htmltools::br(),
+    htmltools::br(),
+    "Please define these variables",
+    "and then re-run the report.",
+    htmltools::br(),
+    htmltools::br(),
+    style = "max-width: 600px"
+  ))
+  knitr::knit_exit("Terminating the report early.")
+}
+```
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
