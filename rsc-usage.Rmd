@@ -8,7 +8,7 @@ output:
 ---
 ```{r preflight_check, results='asis', include=TRUE}
 if (
-  nchar(Sys.getenv("RSTUDIO_CONNECT_SERVER")) == 0 &&
+  nchar(Sys.getenv("RSTUDIO_CONNECT_SERVER")) == 0 ||
   nchar(Sys.getenv("RSTUDIO_CONNECT_API_KEY")) == 0
 ) {
   print(htmltools::h4("ERROR: Variables Not Defined"))
