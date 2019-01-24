@@ -1,16 +1,10 @@
-success <- suppressWarnings(require(pacman))
-
-if(!success) {install.packages("pacman")
-  require(pacman)
-}
-
-pacman::p_load(magrittr)
+library(magrittr)
 
 # helper function to return character instead of NULL 
 null_char <- function(x, default) {
-  if (is.null(x) || is.na(x))
-    return(default)
-  x
+ if (is.null(x) || is.na(x))
+   return(default)
+ x
 }
 
 null_chars <- function(x, default) {
@@ -58,7 +52,7 @@ add_content_guid_filter <- function(endpoint, content_guid) {
     endpoint
   }
 }
-
+  
 
 # helper function to hget a single user
 get_a_user <- function(guid) {
@@ -71,7 +65,7 @@ get_a_user <- function(guid) {
 get_all_users <- function(){
   endpoint <- 'users?page_size=25'
   resp <- connect_api(endpoint) 
-  
+
   #init result set
   result <- data.frame(username = vector("character"), 
                        guid = vector("character"), 
@@ -131,8 +125,8 @@ get_shiny_usage <- function(content_guid = NA,
                                             user_guid = null_char(.x$user_guid,"anonymous"),
                                             ended = null_char(.x$ended, as.character(Sys.time())),
                                             stringsAsFactors = FALSE
+                                            )
                                 )
-                  )
   )
   # now step through the remaining pages
   while (!is.null(payload$paging[["next"]])) {
