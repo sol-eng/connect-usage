@@ -148,14 +148,16 @@ get_shiny_usage <- function(content_guid = NA,
 
 # get content by guid
 get_content <- function(content_guid) {
-  resp <- connect_api(sprintf("experimental/content/%s", content_guid))  
-  httr::content(resp)
+  tryCatch({resp <- connect_api(sprintf("experimental/content/%s", content_guid))
+  httr::content(resp)}, error = function(e) 'Unknown (Deleted Content?)')
+  
 }
 
 get_content_name <- function(content_guid) {
-  content <- get_content(content_guid)
-  null_char(content$title, content$name)
+  tryCatch({content <- get_content(content_guid)
+  null_char(content$title, content$name)},error = function(e) 'Unknown (Deleted Content?)')
 }
+
 # get usage data for content, optionally filtering by content GUID and datetime
 get_content_usage <- function(content_guid = NA, 
                               from = lubridate::now() - lubridate::ddays(30)) {
