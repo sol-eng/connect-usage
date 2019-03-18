@@ -109,41 +109,29 @@ get_shiny_usage <- function(content_guid = NA,
     add_from_filter(from) %>% 
     connect_api()
   
-  #init result set
-  result <- data.frame(started = vector("character"), 
-                       content_guid = vector("character"),
-                       user_guid = vector("character"), 
-                       ended = vector("character"))
-  
   
   # process first page
   payload <- httr::content(resp)
-  result <- rbind(result, 
-                  purrr::map_df(payload$results, 
-                                ~data.frame(started = .x$started,
-                                            content_guid = .x$content_guid,
-                                            user_guid = null_char(.x$user_guid,"anonymous"),
-                                            ended = null_char(.x$ended, as.character(Sys.time())),
-                                            stringsAsFactors = FALSE
-                                            )
-                                )
-  )
+  result <- payload$results
+  
   # now step through the remaining pages
   while (!is.null(payload$paging[["next"]])) {
     resp <- httr::GET(payload$paging[["next"]],  connect_auth())
     
     payload <- httr::content(resp)
-    
-    # process this page 
-    result <- rbind(result, 
-                    purrr::map_df(payload$results, 
-                                  ~data.frame(started = .x$started,
-                                              content_guid = .x$content_guid,
-                                              user_guid = null_char(.x$user_guid, "anonymous"),
-                                              ended = null_char(.x$ended, as.character(Sys.time())),
-                                              stringsAsFactors = FALSE)))
+    result <- c(result, payload$results)
   }
-  result  
+  
+  result <- do.call(rbind, result) %>%
+    as.data.frame() %>%
+    dplyr::mutate(
+      started = purrr::map_chr(started, 1), # or could use unlist()
+      content_guid = purrr::map_chr(content_guid, 1),
+      user_guid = purrr::map_chr(user_guid, null_char, "anonymous"),
+      ended = purrr::map_chr(ended, null_char, as.character(Sys.time()))
+    )
+  
+  result
 }
 
 # get content by guid
@@ -168,40 +156,27 @@ get_content_usage <- function(content_guid = NA,
     add_from_filter(from) %>% 
     connect_api()
   
-  resp <- connect_api(endpoint)
-  
-  #init result set
-  result <- data.frame(time = vector("character"), 
-                       content_guid = vector("character"),
-                       user_guid = vector("character"))
-  
-  
   # process first page
   payload <- httr::content(resp)
-  result <- rbind(result, 
-                  purrr::map_df(payload$results, 
-                                ~data.frame(time = .x$time,
-                                            content_guid = .x$content_guid,
-                                            user_guid = null_char(.x$user_guid,"anonymous"),
-                                            stringsAsFactors = FALSE
-                                )
-                  )
-  )
+  result <- payload$results
+  
   # now step through the remaining pages
   while (!is.null(payload$paging[["next"]])) {
     resp <- httr::GET(payload$paging[["next"]], connect_auth())
     
     payload <- httr::content(resp)
-    
-    # process this page 
-    result <- rbind(result, 
-                    purrr::map_df(payload$results, 
-                                  ~data.frame(content_guid = .x$content_guid,
-                                              user_guid = null_char(.x$user_guid, "anonymous"),
-                                              time = .x$time,
-                                              stringsAsFactors = FALSE)))
+    result <- c(result, payload$results)
   }
-  result  
+  
+  result <- do.call(rbind, result) %>%
+    as.data.frame() %>%
+    dplyr::mutate(
+      time = purrr::map_chr(time, 1), # or could use unlist()
+      content_guid = purrr::map_chr(content_guid, 1),
+      user_guid = purrr::map_chr(user_guid, null_char, "anonymous")
+    )
+  
+  result
 }
 
 clean_data <- function(data){
