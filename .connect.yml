@@ -1,6 +1,0 @@
-default:
-  content:
-    - title: "Connect Usage Report"
-      name: "badf0109-4814-4ab9-86bf-736624b6b42b"
-      path: "./"
-      description: "A R Markdown report on Connect application usage data"
