@@ -24,7 +24,7 @@ The report uses the environment variables `RSTUDIO_CONNECT_SERVER` and `RSTUDIO_
 
 - Could this be a shiny app instead of a report? Of course! Let us know what you come up with.
 - Can I use the API from another language besides R? Absolutely, the API includes a spec to get you started.
-- Will you provide an R client for accessing the API? Email `sol-eng@rstudio.com` if this sounds interesting.
+- Will you provide an R client for accessing the API? Email `sales@rstudio.com` if this sounds interesting.
 - What is the `manifest.json` file? This file aids in programmatic deployments, a new RStudio Connect feature.
 
 Learn more about programmatic deployments, calling the server API, and custom emails [here](https://docs.rstudio.com/user).
