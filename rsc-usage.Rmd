@@ -58,7 +58,7 @@ Column
 
 ### Shiny Sessions by User (Top 5)
 
-```{r}
+```{r shiny_by_user}
 data$shiny %>%
     group_by(user_guid) %>% 
     summarise(visits = n()) %>% 
@@ -79,9 +79,9 @@ data$shiny %>%
     config(displayModeBar = F)
 ```
 
-### Content Hits by User (Top 5)
+### Static Content Hits by User (Top 5)
 
-```{r}
+```{r static_by_user}
 data$content %>%
     group_by(user_guid) %>% 
     summarise(visits = n()) %>% 
@@ -109,7 +109,7 @@ Column
 
 ### Shiny Sessions Over Time
 
-```{r}
+```{r shiny_over_time}
 data$shiny %>%
     mutate(day = round_date(started, "day")) %>% 
     group_by(day) %>% 
@@ -129,9 +129,9 @@ data$shiny %>%
 ```
 
 
-### Content Visits Over Time
+### Static Content Visits Over Time
 
-```{r}
+```{r static_over_time}
 data$content %>%
     mutate(time = ymd_hms(time),
           day = round_date(time, "day")) %>% 
@@ -156,7 +156,7 @@ Column
 
 ### Top Applications
 
-```{r}
+```{r top_shiny}
 data$shiny %>% 
   group_by(content_guid) %>% 
   summarize(visits = n()) %>% 
@@ -175,9 +175,9 @@ data$shiny %>%
     config(displayModeBar = F)
 ```
 
-### Top Reports 
+### Top Static Content
 
-```{r}
+```{r top_static}
 data$content %>% 
   group_by(content_guid) %>% 
   summarize(visits = n()) %>% 
@@ -197,7 +197,7 @@ data$content %>%
 ```
 
 
-```{r}
+```{r custom_email}
 content_summary <- data$content %>% 
   group_by(content_guid) %>% 
   summarize(visits = n()) %>% 
