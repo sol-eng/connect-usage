@@ -6,6 +6,27 @@ output:
     vertical_layout: fill
     css: styles.css
 ---
+```{r preflight_check, results='asis', include=TRUE}
+if (
+  nchar(Sys.getenv("RSTUDIO_CONNECT_SERVER")) == 0 ||
+  nchar(Sys.getenv("RSTUDIO_CONNECT_API_KEY")) == 0
+) {
+  print(htmltools::h4("ERROR: Variables Not Defined"))
+  print(htmltools::div(
+    "The RSTUDIO_CONNECT_SERVER and RSTUDIO_CONNECT_API_KEY",
+    "environment variables are required in order for this report",
+    "to pull usage data.",
+    htmltools::br(),
+    htmltools::br(),
+    "Please define these variables",
+    "and then re-run the report.",
+    htmltools::br(),
+    htmltools::br(),
+    style = "max-width: 600px"
+  ))
+  knitr::knit_exit("Terminating the report early.")
+}
+```
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
@@ -37,7 +58,7 @@ Column
 
 ### Shiny Sessions by User (Top 5)
 
-```{r}
+```{r shiny_by_user}
 data$shiny %>%
     group_by(user_guid) %>% 
     summarise(visits = n()) %>% 
@@ -58,9 +79,9 @@ data$shiny %>%
     config(displayModeBar = F)
 ```
 
-### Content Hits by User (Top 5)
+### Static Content Hits by User (Top 5)
 
-```{r}
+```{r static_by_user}
 data$content %>%
     group_by(user_guid) %>% 
     summarise(visits = n()) %>% 
@@ -88,7 +109,7 @@ Column
 
 ### Shiny Sessions Over Time
 
-```{r}
+```{r shiny_over_time}
 data$shiny %>%
     mutate(day = round_date(started, "day")) %>% 
     group_by(day) %>% 
@@ -108,9 +129,9 @@ data$shiny %>%
 ```
 
 
-### Content Visits Over Time
+### Static Content Visits Over Time
 
-```{r}
+```{r static_over_time}
 data$content %>%
     mutate(time = ymd_hms(time),
           day = round_date(time, "day")) %>% 
@@ -135,14 +156,14 @@ Column
 
 ### Top Applications
 
-```{r}
+```{r top_shiny}
 data$shiny %>% 
   group_by(content_guid) %>% 
   summarize(visits = n()) %>% 
   arrange(desc(visits)) %>% 
   head() %>% 
   mutate(name = sapply(content_guid, get_content_name)) %>% 
-  {ggplot(., aes(reorder(name, visits), visits)) + 
+  {ggplot(., aes(reorder(stringr::str_wrap(name, 30), visits), visits)) + 
      geom_bar(stat = "identity") +  
      coord_flip() + 
      theme_rstudio() + 
@@ -151,19 +172,20 @@ data$shiny %>%
        x = NULL
      )} %>% 
     ggplotly(tooltip = c("y")) %>% 
+    layout(margin = list(l = 0)) %>%
     config(displayModeBar = F)
 ```
 
-### Top Reports 
+### Top Static Content
 
-```{r}
+```{r top_static}
 data$content %>% 
   group_by(content_guid) %>% 
   summarize(visits = n()) %>% 
   arrange(desc(visits)) %>% 
   head() %>% 
   mutate(name = sapply(content_guid, get_content_name)) %>% 
-  {ggplot(., aes(reorder(name, visits), visits)) + 
+  {ggplot(., aes(reorder(stringr::str_wrap(name, 30), visits), visits)) + 
      geom_bar(stat = "identity") +  
      coord_flip() + 
      theme_rstudio() + 
@@ -172,11 +194,12 @@ data$content %>%
        x = NULL
      )} %>% 
     ggplotly(tooltip = c("y")) %>% 
+    layout(margin = list(l = 0)) %>%
     config(displayModeBar = F)
 ```
 
 
-```{r}
+```{r custom_email}
 content_summary <- data$content %>% 
   group_by(content_guid) %>% 
   summarize(visits = n()) %>% 
