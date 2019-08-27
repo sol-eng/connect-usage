@@ -184,5 +184,5 @@ clean_data <- function(data){
   data$started <- lubridate::ymd_hms(data$started)
   data$ended <- lubridate::ymd_hms(data$ended)
   data$session_duration <- data$ended - data$started
-  dplyr::filter(data, session_duration > dseconds(5))
+  dplyr::filter(data, session_duration > lubridate::dseconds(5))
 }
