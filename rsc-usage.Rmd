@@ -46,7 +46,7 @@ get_content_name <- function(client, content_guid) {
     if (is.null(content$title)) {
       return(content$name)
     } else {
-      content$title
+      return(content$title)
     }
     },
     error = function(e) 'Unknown (Deleted Content?)'
@@ -233,47 +233,9 @@ data$content %>%
 
 
 ```{r custom_email}
-content_summary <- data$content %>% 
-  group_by(content_guid) %>% 
-  summarize(visits = n()) %>% 
-  arrange(desc(visits)) %>% 
-  head() %>% 
-  mutate(name = purrr::map_chr(content_guid, ~ get_content_name(client, .x)))
-
-app_summary <- data$shiny %>% 
-  group_by(content_guid) %>% 
-  summarize(visits = n()) %>% 
-  arrange(desc(visits)) %>% 
-  head() %>% 
-  mutate(name = purrr::map_chr(content_guid, ~ get_content_name(client, .x)))
-
-leaderboard <- 
-  rbind(app_summary, content_summary) %>% 
-  ggplot(., aes(reorder(name, visits), visits)) + 
-     geom_bar(stat = "identity") +  
-     coord_flip() + 
-     theme_rstudio() + 
-     labs(
-       y = "Visits",
-       x = NULL
-     )
-
-body <- compose_email(
-  body = "
-  Hi Data Science Team!
-  
-  Here is the top viewed content for the last 30 days:
-  
-  {add_ggplot(leaderboard, width = 6, height = 6)}
-  
-  Best,
-  
-  RStudio Connect
-  "
-)
-rmarkdown::output_metadata$set(
-  rsc_email_subject = sprintf(" Content Usage Report For %s", month(today(), label = TRUE, abbr = FALSE)),
-  rsc_email_body_html = body$html_str,
-  rsc_email_images = body$images
-)
+render_connect_email(input = "usage-email.Rmd") %>%
+  attach_connect_email(
+    subject =  sprintf(" Content Usage Report For %s", month(today(), label = TRUE, abbr = FALSE)),
+    attach_output = TRUE
+  )
 ```
