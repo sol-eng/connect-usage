@@ -1,0 +1,46 @@
+---
+title: "Content Usage Report"
+output: blastula::blastula_email
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+```{r custom_email}
+content_summary <- data$content %>% 
+  group_by(content_guid) %>% 
+  summarize(visits = n()) %>% 
+  arrange(desc(visits)) %>% 
+  head() %>% 
+  mutate(name = purrr::map_chr(content_guid, ~ get_content_name(client, .x)))
+
+app_summary <- data$shiny %>% 
+  group_by(content_guid) %>% 
+  summarize(visits = n()) %>% 
+  arrange(desc(visits)) %>% 
+  head() %>% 
+  mutate(name = purrr::map_chr(content_guid, ~ get_content_name(client, .x)))
+
+leaderboard <- dplyr::bind_rows(app_summary, content_summary) %>%
+  arrange(desc(visits)) %>%
+  ggplot(., aes(reorder(name, visits), visits)) + 
+     geom_bar(stat = "identity") +  
+     coord_flip() + 
+     theme_rstudio() + 
+     labs(
+       y = "Visits",
+       x = NULL
+     )
+```
+
+Hi Data Science Team!
+
+Here is the top viewed content for the last 30 days:
+
+```{r add_plot}
+leaderboard
+```
+
+Best,
+
+RStudio Connect
