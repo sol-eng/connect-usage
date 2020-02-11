@@ -18,7 +18,7 @@ The report is generated using the [RStudio Connect Server API](https://docs.rstu
 
 **A data science team's time is precious, this data will help you focus and justify your efforts.**
 
-The report uses the environment variables `RSTUDIO_CONNECT_SERVER` and `RSTUDIO_CONNECT_API_KEY` to collect the data. To limit the results to a single publisher, use a publisher API key.
+The report uses the environment variables `CONNECT_SERVER` and `CONNECT_API_KEY` to collect the data. To limit the results to a single publisher, use a publisher API key.
 
 ### Common Questions
 
