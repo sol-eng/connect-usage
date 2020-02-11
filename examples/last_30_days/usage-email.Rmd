@@ -4,6 +4,7 @@ output: blastula::blastula_email
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+default_content_title <- "Unknown (Deleted Content?)"
 ```
 
 ```{r custom_email}
@@ -12,14 +13,14 @@ content_summary <- data$content %>%
   summarize(visits = n()) %>% 
   arrange(desc(visits)) %>% 
   head() %>% 
-  mutate(name = purrr::map_chr(content_guid, ~ get_content_name(client, .x)))
+  mutate(name = purrr::map_chr(content_guid, ~ content_title(client, .x, default_content_title)))
 
 app_summary <- data$shiny %>% 
   group_by(content_guid) %>% 
   summarize(visits = n()) %>% 
   arrange(desc(visits)) %>% 
   head() %>% 
-  mutate(name = purrr::map_chr(content_guid, ~ get_content_name(client, .x)))
+  mutate(name = purrr::map_chr(content_guid, ~ content_title(client, .x, default_content_title)))
 
 leaderboard <- dplyr::bind_rows(app_summary, content_summary) %>%
   arrange(desc(visits)) %>%
