@@ -40,20 +40,9 @@ library(blastula)
 library(prettyunits)
 library(connectapi)
 
-get_content_name <- function(client, content_guid) {
-  tryCatch({
-    content <- client$content(content_guid)
-    if (is.null(content$title)) {
-      return(content$name)
-    } else {
-      return(content$title)
-    }
-    },
-    error = function(e) 'Unknown (Deleted Content?)'
-    )
-}
-
 source("themes.R")
+
+default_content_title <- "Unknown (Deleted Content?)"
 
 report_from <- lubridate::today() - lubridate::ddays(30)
 
@@ -195,7 +184,7 @@ data$shiny %>%
   summarize(visits = n()) %>% 
   arrange(desc(visits)) %>% 
   head() %>% 
-  mutate(name = purrr::map_chr(content_guid, ~ get_content_name(client, .x))) %>% 
+  mutate(name = purrr::map_chr(content_guid, ~ content_title(client, .x, default_content_title))) %>% 
   {ggplot(., aes(reorder(stringr::str_wrap(name, 30), visits), visits)) + 
      geom_bar(stat = "identity") +  
      coord_flip() + 
@@ -217,7 +206,7 @@ data$content %>%
   summarize(visits = n()) %>% 
   arrange(desc(visits)) %>% 
   head() %>%
-  mutate(name = purrr::map_chr(content_guid, ~ get_content_name(client, .x))) %>% 
+  mutate(name = purrr::map_chr(content_guid, ~ content_title(client, .x, default_content_title))) %>% 
   {ggplot(., aes(reorder(stringr::str_wrap(name, 30), visits), visits)) + 
      geom_bar(stat = "identity") +  
      coord_flip() + 
