@@ -8,12 +8,12 @@ output:
 ---
 ```{r preflight_check, results='asis', include=TRUE}
 if (
-  nchar(Sys.getenv("RSTUDIO_CONNECT_SERVER")) == 0 ||
-  nchar(Sys.getenv("RSTUDIO_CONNECT_API_KEY")) == 0
+  nchar(Sys.getenv("CONNECT_SERVER")) == 0 ||
+  nchar(Sys.getenv("CONNECT_API_KEY")) == 0
 ) {
   print(htmltools::h4("ERROR: Variables Not Defined"))
   print(htmltools::div(
-    "The RSTUDIO_CONNECT_SERVER and RSTUDIO_CONNECT_API_KEY",
+    "The CONNECT_SERVER and CONNECT_API_KEY",
     "environment variables are required in order for this report",
     "to pull usage data.",
     htmltools::br(),
@@ -38,12 +38,45 @@ library(shiny)
 library(lubridate)
 library(blastula)
 library(prettyunits)
+library(connectapi)
 
-source("helpers.R")
+get_content_name <- function(client, content_guid) {
+  tryCatch({
+    content <- client$content(content_guid)
+    if (is.null(content$title)) {
+      return(content$name)
+    } else {
+      return(content$title)
+    }
+    },
+    error = function(e) 'Unknown (Deleted Content?)'
+    )
+}
+
 source("themes.R")
-shiny <- get_shiny_usage() %>% 
-    clean_data()
-content <- get_content_usage()
+
+report_from <- lubridate::today() - lubridate::ddays(30)
+
+client <- connect()
+shiny <- get_usage_shiny(
+  client,
+  from = report_from,
+  limit = Inf
+) %>%
+  mutate(
+    started = lubridate::ymd_hms(started),
+    ended = lubridate::ymd_hms(ended),
+    session_duration = ended - started
+    ) %>%
+  filter(session_duration > lubridate::dseconds(5))
+content <- get_usage_static(
+  client,
+  from = report_from,
+  limit = Inf
+)
+
+all_users <- get_users(client, page_size = 500)
+
 data <-   list(shiny = shiny, content = content)
 
 ```
@@ -51,7 +84,7 @@ data <-   list(shiny = shiny, content = content)
 
 This content summary may contain privileged information. The report is generated using the [RStudio Connect Server API](http://docs.rstudio.com/connect/api) and the source code is [available online](https://github.com/sol-eng/rsc-usage) if you'd like to customize your analysis. Data is limited to the last 30 days.
 
-The report uses the environment variables `RSTUDIO_CONNECT_SERVER` and `RSTUDIO_CONNECT_API_KEY` to collect the data. To limit the results to a single publisher, use a publisher API key.
+The report uses the environment variables `CONNECT_SERVER` and `CONNECT_API_KEY` to collect the data. To limit the results to a single publisher, use a publisher API key.
 
 Column 
 -----------------------------------------------------------------------
@@ -62,8 +95,8 @@ Column
 data$shiny %>%
     group_by(user_guid) %>% 
     summarise(visits = n()) %>% 
-    mutate(username = join_users(user_guid),
-           username = null_chars(username, "anonymous")) %>% 
+    left_join(all_users, by = c(user_guid = "guid")) %>%
+    mutate(username = coalesce(username, "anonymous")) %>%
     select(username, visits) %>% 
     arrange(desc(visits)) %>% 
     head(5) %>% 
@@ -85,8 +118,8 @@ data$shiny %>%
 data$content %>%
     group_by(user_guid) %>% 
     summarise(visits = n()) %>% 
-    mutate(username = join_users(user_guid),
-           username = null_chars(username, "anonymous")) %>% 
+    left_join(all_users, by = c(user_guid = "guid")) %>%
+    mutate(username = coalesce(username, "anonymous")) %>% 
     select(username, visits) %>% 
     arrange(desc(visits)) %>% 
     head(5) %>% 
@@ -162,7 +195,7 @@ data$shiny %>%
   summarize(visits = n()) %>% 
   arrange(desc(visits)) %>% 
   head() %>% 
-  mutate(name = sapply(content_guid, get_content_name)) %>% 
+  mutate(name = purrr::map_chr(content_guid, ~ get_content_name(client, .x))) %>% 
   {ggplot(., aes(reorder(stringr::str_wrap(name, 30), visits), visits)) + 
      geom_bar(stat = "identity") +  
      coord_flip() + 
@@ -183,8 +216,8 @@ data$content %>%
   group_by(content_guid) %>% 
   summarize(visits = n()) %>% 
   arrange(desc(visits)) %>% 
-  head() %>% 
-  mutate(name = sapply(content_guid, get_content_name)) %>% 
+  head() %>%
+  mutate(name = purrr::map_chr(content_guid, ~ get_content_name(client, .x))) %>% 
   {ggplot(., aes(reorder(stringr::str_wrap(name, 30), visits), visits)) + 
      geom_bar(stat = "identity") +  
      coord_flip() + 
@@ -200,47 +233,9 @@ data$content %>%
 
 
 ```{r custom_email}
-content_summary <- data$content %>% 
-  group_by(content_guid) %>% 
-  summarize(visits = n()) %>% 
-  arrange(desc(visits)) %>% 
-  head() %>% 
-  mutate(name = sapply(content_guid, get_content_name))
-
-app_summary <- data$shiny %>% 
-  group_by(content_guid) %>% 
-  summarize(visits = n()) %>% 
-  arrange(desc(visits)) %>% 
-  head() %>% 
-  mutate(name = sapply(content_guid, get_content_name))
-
-leaderboard <- 
-  rbind(app_summary, content_summary) %>% 
-  ggplot(., aes(reorder(name, visits), visits)) + 
-     geom_bar(stat = "identity") +  
-     coord_flip() + 
-     theme_rstudio() + 
-     labs(
-       y = "Visits",
-       x = NULL
-     )
-
-body <- compose_email(
-  body = "
-  Hi Data Science Team!
-  
-  Here is the top viewed content for the last 30 days:
-  
-  {add_ggplot(leaderboard, width = 6, height = 6)}
-  
-  Best,
-  
-  RStudio Connect
-  "
-)
-rmarkdown::output_metadata$set(
-  rsc_email_subject = sprintf(" Content Usage Report For %s", month(today(), label = TRUE, abbr = FALSE)),
-  rsc_email_body_html = body$html_str,
-  rsc_email_images = body$images
-)
+render_connect_email(input = "usage-email.Rmd") %>%
+  attach_connect_email(
+    subject =  sprintf(" Content Usage Report For %s", month(today(), label = TRUE, abbr = FALSE)),
+    attach_output = TRUE
+  )
 ```
