@@ -1,94 +1,99 @@
-# RStudio Connect Usage Report
 
-This R Markdown report can be published as-is to your RStudio Connect server or 
-used as a starting point for your own analysis. You can schedule the report and 
-distribute it via email (the email will include inline graphics!)
+# RStudio Connect Usage Data
 
-Sample Report: http://colorado.rstudio.com/rsc/usage
+This repository illustrates several examples for getting started with
+the RStudio Connect usage data. The examples:
 
-<center><img src="email-preview.png" width = "400px" height = "400x"></center>
+  - [./examples/last\_30\_days](./examples/last_30_days)
 
-The report is generated using the [RStudio Connect Server API](https://docs.rstudio.com/connect/api). The `helpers.R` file contains example code for querying the various API endpoints. The API and data collection are both available as of RStudio Connect 1.7.0. The API contains data to help answer questions like:
+The examples are generated using the [RStudio Connect Server
+API](https://docs.rstudio.com/connect/api). The API and data collection
+are both available as of RStudio Connect 1.7.0. The API contains data to
+help answer questions like:
 
-- What content is most visited?
-- Who is visiting my content?
-- What reports are most common?
-- Has viewership increased over time?
-- Did my CEO actually visit this app?
+  - What content is most visited?
+  - Who is visiting my content?
+  - What reports are most common?
+  - Has viewership increased over time?
+  - Did my CEO actually visit this app?
 
-**A data science team's time is precious, this data will help you focus and justify your efforts.**
-
-The report uses the environment variables `CONNECT_SERVER` and `CONNECT_API_KEY` to collect the data. To limit the results to a single publisher, use a publisher API key.
-
-### Common Questions
-
-- Could this be a shiny app instead of a report? Of course! Let us know what you come up with.
-- Can I use the API from another language besides R? Absolutely, the API includes a spec to get you started.
-- Will you provide an R client for accessing the API? Please start a topic on [RStudio Community](https://community.rstudio.com/c/r-admin) (in the R Admins section) if this sounds interesting.
-- What is the `manifest.json` file? This file aids in programmatic deployments, a new RStudio Connect feature.
+**A data science team’s time is precious, this data will help you focus
+and justify your efforts.**
 
 ## Basic example
 
-The following code should work as-is if copied into your R session.  You just need to replace the server name, and have your API key ready.  
+The following code should work as-is if copied into your R session. NOTE
+that it uses the [`connectapi`](https://github.com/rstudio/connectapi)
+package, which can be installed from GitHub with
+`remotes::install_github("rstudio/connectapi")`. You just need to
+replace the server name, and have your API key ready.
 
-If the file does not exist, `helpers.R` will be copied to your workspace from this repository. After source the `helper.R` file, the code below will load the server and API key.  Lastly, it will use the `get_shiny_usage()` function to pull the latest activity of the Shiny apps you are allowed to see within your server, and then `clean_data()` is mainly used to calculate the length of each session. 
+``` r
+## ACTION REQUIRED: Change the server URL below to your server's URL
+Sys.setenv("CONNECT_SERVER"  = "https://connect.example.com/rsc") 
+## ACTION REQUIRED: Make sure to have your API key ready
+Sys.setenv("CONNECT_API_KEY" = rstudioapi::askForPassword("Enter Connect Token:")) 
+```
 
-```r
+This will use the `get_usage_shiny()` function to pull the latest
+activity of the Shiny apps you are allowed to see within your server.
+
+``` r
 library(ggplot2)
 library(dplyr)
+library(connectapi)
 
-# Bring the needed functions into your project by copying the helper.R file
-if(!file.exists("helpers.R")) {
-  helpers <- "https://raw.githubusercontent.com/sol-eng/connect-usage/master/helpers.R"
-  writeLines(readLines(helpers), "helpers.R")
-}
-source("helpers.R")
-
-## ACTION REQUIRED: Change the server URL below to your server's URL
-Sys.setenv("RSTUDIO_CONNECT_SERVER"  = "https://connect.example.com/rsc") 
-## ACTION REQUIRED: Make sure to have your API key ready
-Sys.setenv("RSTUDIO_CONNECT_API_KEY" = rstudioapi::askForPassword("Enter Connect Token:")) 
+client <- connect()
 
 # Get and clean the Shiny usage data
-shiny_rsc <- get_shiny_usage() %>% 
-  clean_data()
+shiny_rsc <- get_usage_shiny(
+  client,
+  from = lubridate::today() - lubridate::ddays(7), 
+  limit = Inf
+  ) %>%
+  filter(!is.na(ended)) %>%
+  mutate(session_duration = ended - started)
 
 glimpse(shiny_rsc)
 ```
-```
-## Observations: 1,343
-## Variables: 6
-## $ content_guid     <chr> "7ffb6265-a426-483b-84dd-29b3ffbe86da", "f9f1d131-7c57-4f80-81d8-afa…
-## $ user_guid        <chr> "anonymous", "anonymous", "anonymous", "anonymous", "anonymous", "an…
-## $ started          <dttm> 2019-07-28 19:40:21, 2019-07-28 21:19:06, 2019-07-28 22:23:36, 2019…
-## $ ended            <dttm> 2019-07-28 20:40:41, 2019-07-28 21:20:11, 2019-07-28 22:23:54, 2019…
-## $ data_version     <list> [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-## $ session_duration <drtn> 3620 secs, 65 secs, 18 secs, 18 secs, 3617 secs, 65 secs, 90 secs, …
-```
 
-The identifiers used for the content in RStudio Connect are GUIDs.  In order to get their title, we need to use the `get_content_name()` function.  This function returns only one GUID at a time, so `purrr`'s `map_dfr()` is used to iterate through all of the unique GUIDs in order to get every Shiny app's title.
+    ## Observations: 1,103
+    ## Variables: 6
+    ## $ content_guid     <chr> "8cbcb5a3-d491-4ad1-b307-b571c3c15b58", "5957cb…
+    ## $ user_guid        <chr> NA, "e6810648-1434-4821-b870-a58b076ed60b", NA,…
+    ## $ started          <dttm> 2020-02-04 00:02:00, 2020-02-04 00:20:13, 2020…
+    ## $ ended            <dttm> 2020-02-04 00:02:57, 2020-02-04 00:54:12, 2020…
+    ## $ data_version     <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+    ## $ session_duration <drtn> 57 secs, 2039 secs, 59 secs, 21 secs, 56 secs,…
 
-```r
+The identifiers used for the content in RStudio Connect are GUIDs. We
+can retrieve content names using the API. The API handles only one GUID
+at a time, so `purrr`’s `map_dfr()` is used to iterate through all of
+the unique GUIDs in order to get every Shiny app’s title.
+
+``` r
 # Get the title of each Shiny app
-shiny_rsc_names <- shiny_rsc %>%
+shiny_rsc_titles <- shiny_rsc %>%
   count(content_guid) %>% 
   pull(content_guid) %>%
   purrr::map_dfr(
-    ~tibble(content_guid = .x, content_name = get_content_name(.x))
+    ~tibble(content_guid = .x, content_name = content_title(client, .x))
     )
 
-glimpse(shiny_rsc_names)
-```
-```
-## Observations: 122
-## Variables: 2
-## $ content_guid <chr> "0076bbb3-429e-4f99-9f85-674b1f8ea3b7", "030de800-7c9f-4d18-a5c4-c87b79a…
-## $ content_name <chr> "Bitbucket - Demo", "Pro Admin Training 7-1 exercise: Install RSPM", "Sa…
+glimpse(shiny_rsc_titles)
 ```
 
-The new `shiny_rsc_names` table, and the `shiny_rsc` can be joined to return the "user readable" title name. Using standard `dplyr` and `ggplot2` functions, we can now determine things such as the top 10 apps based on how long their average sessions are.
+    ## Observations: 68
+    ## Variables: 2
+    ## $ content_guid <chr> "05e41a9e-d90d-4378-85f4-60bdfadadac7", "09bfa711-d…
+    ## $ content_name <chr> "Tracker Shiny App", "Bike Model Performance App", …
 
-```r
+The new `shiny_rsc_titles` table, and the `shiny_rsc` can be joined to
+return the “user readable” title. Using standard `dplyr` and `ggplot2`
+functions, we can now determine things such as the top 10 apps based on
+how long their average sessions are.
+
+``` r
 # Calculate the average session duration and sort
 app_sessions <- shiny_rsc %>%
   group_by(content_guid) %>%
@@ -96,13 +101,14 @@ app_sessions <- shiny_rsc %>%
   ungroup() %>%
   arrange(desc(avg_session)) %>%
   head(10) %>%
-  inner_join(shiny_rsc_names, by = "content_guid") 
+  inner_join(shiny_rsc_titles, by = "content_guid") 
   
 # Plot the top 10 used content
 app_sessions %>%
   ggplot(aes(content_name, avg_session)) +
   geom_col() +
-  geom_text(aes(y = avg_session + 200, label = round(avg_session)), size = 3) +
+  scale_y_continuous() +
+  geom_text(aes(y = (avg_session + 200), label = round(avg_session)), size = 3) +
   coord_flip() +
   theme_bw() +
   labs(
@@ -113,6 +119,7 @@ app_sessions %>%
     )
 ```
 
-<center><img src="ggplot-usage.png" width = "800px" height = "400x"></center>
+![](README_files/figure-gfm/analyze_data-1.png)<!-- -->
 
-Learn more about programmatic deployments, calling the server API, and custom emails [here](https://docs.rstudio.com/user).
+Learn more about programmatic deployments, calling the server API, and
+custom emails [here](https://docs.rstudio.com/user).
