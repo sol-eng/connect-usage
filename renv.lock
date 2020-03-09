@@ -88,15 +88,10 @@
     },
     "blastula": {
       "Package": "blastula",
-      "Version": "0.3.1.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "blastula",
-      "RemoteUsername": "rich-iannone",
-      "RemoteRef": "master",
-      "RemoteSha": "2ba8f62f32d6365d38222892d5a82c6e96bc60c8",
-      "Hash": "78b66af5ff73f664f86dc9714137bb94"
+      "Version": "0.3.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "fcc107d07d0731a2b40f374bffe9d278"
     },
     "cli": {
       "Package": "cli",
