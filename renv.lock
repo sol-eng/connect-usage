@@ -4,7 +4,7 @@
     "Repositories": [
       {
         "Name": "RSPM",
-        "URL": "https://demo.rstudiopm.com/all/1654"
+        "URL": "https://demo.rstudiopm.com/all/latest"
       }
     ]
   },
