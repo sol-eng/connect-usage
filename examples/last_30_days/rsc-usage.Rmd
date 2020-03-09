@@ -1,5 +1,5 @@
 ---
-title: "RStudio Connect Usage - Last 30 Days"
+title: "RStudio Connect Usage - Last `r as.numeric(Sys.getenv('DAYSBACK', 30))` Days"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -42,9 +42,11 @@ library(connectapi)
 
 source("themes.R")
 
+days_back <- as.numeric(Sys.getenv("DAYSBACK", 30))
+
 default_content_title <- "Unknown (Deleted Content?)"
 
-report_from <- lubridate::today() - lubridate::ddays(30)
+report_from <- lubridate::today() - lubridate::ddays(days_back)
 
 client <- connect()
 shiny <- get_usage_shiny(
@@ -71,9 +73,15 @@ data <-   list(shiny = shiny, content = content)
 ```
 
 
-This content summary may contain privileged information. The report is generated using the [RStudio Connect Server API](http://docs.rstudio.com/connect/api) and the source code is [available online](https://github.com/sol-eng/connect-usage) if you'd like to customize your analysis. Data is limited to the last 30 days.
+This content summary may contain privileged information. The report is generated
+using the [RStudio Connect Server API](http://docs.rstudio.com/connect/api) and
+the source code is [available online](https://github.com/sol-eng/connect-usage)
+if you'd like to customize your analysis. Data is limited to the last `r
+days_back` days.
 
-The report uses the environment variables `CONNECT_SERVER` and `CONNECT_API_KEY` to collect the data. To limit the results to a single publisher, use a publisher API key.
+The report uses the environment variables `CONNECT_SERVER` and `CONNECT_API_KEY`
+to collect the data. To limit the results to a single publisher, use a publisher
+API key.
 
 Column 
 -----------------------------------------------------------------------
@@ -135,7 +143,7 @@ Column
 data$shiny %>%
     mutate(day = round_date(started, "day")) %>% 
     group_by(day) %>% 
-    filter(day > today() - ddays(30)) %>% 
+    filter(day > today() - ddays(days_back)) %>% 
     summarise(visits = n()) %>% 
     arrange(desc(visits)) %>% 
     {ggplot(., aes(day, visits)) + 
@@ -158,7 +166,7 @@ data$content %>%
     mutate(time = ymd_hms(time),
           day = round_date(time, "day")) %>% 
     group_by(day) %>% 
-    filter(day > today() - ddays(30)) %>% 
+    filter(day > today() - ddays(days_back)) %>% 
     summarise(visits = n()) %>% 
     arrange(desc(visits)) %>% 
     {ggplot(., aes(day, visits)) + 
@@ -221,7 +229,7 @@ data$content %>%
 ```
 
 
-```{r custom_email}
+```{r render_custom_email}
 render_connect_email(input = "usage-email.Rmd") %>%
   attach_connect_email(
     subject =  sprintf(" Content Usage Report For %s", month(today(), label = TRUE, abbr = FALSE)),
