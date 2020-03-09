@@ -39,8 +39,7 @@ Hi Data Science Team!
 Here is the top viewed content for the last `r days_back` days:
 
 ```{r add_plot}
-# TODO: broken due to a bug in rmarkdown/blastula
-#leaderboard
+leaderboard
 ```
 
 Best,
