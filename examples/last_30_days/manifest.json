@@ -12,7 +12,7 @@
   "packages": {
     "BH": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -39,7 +39,7 @@
     },
     "DT": {
       "Source": "CRAN",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -70,7 +70,7 @@
     },
     "MASS": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -104,7 +104,7 @@
     },
     "Matrix": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -140,7 +140,7 @@
     },
     "R6": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -170,7 +170,7 @@
     },
     "RColorBrewer": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -195,7 +195,7 @@
     },
     "Rcpp": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -227,7 +227,7 @@
     },
     "askpass": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -259,7 +259,7 @@
     },
     "assertthat": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -287,7 +287,7 @@
     },
     "backports": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -318,7 +318,7 @@
     },
     "base64enc": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -387,7 +387,7 @@
     },
     "cli": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -419,7 +419,7 @@
     },
     "colorspace": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -452,7 +452,7 @@
     },
     "commonmark": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -481,7 +481,7 @@
     },
     "config": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -554,7 +554,7 @@
     },
     "crayon": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -585,7 +585,7 @@
     },
     "crosstalk": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -614,7 +614,7 @@
     },
     "curl": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -648,7 +648,7 @@
     },
     "data.table": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -680,7 +680,7 @@
     },
     "digest": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -710,7 +710,7 @@
     },
     "dplyr": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -744,7 +744,7 @@
     },
     "ellipsis": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -775,7 +775,7 @@
     },
     "evaluate": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -806,7 +806,7 @@
     },
     "fansi": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -838,7 +838,7 @@
     },
     "farver": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -905,7 +905,7 @@
     },
     "flexdashboard": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -937,7 +937,7 @@
     },
     "fs": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -974,7 +974,7 @@
     },
     "getPass": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1006,7 +1006,7 @@
     },
     "ggplot2": {
       "Source": "CRAN",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1040,7 +1040,7 @@
     },
     "glue": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1073,7 +1073,7 @@
     },
     "gtable": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1105,7 +1105,7 @@
     },
     "here": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1135,7 +1135,7 @@
     },
     "hexbin": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1164,7 +1164,7 @@
     },
     "highr": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1195,7 +1195,7 @@
     },
     "hms": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1226,7 +1226,7 @@
     },
     "htmltools": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1259,7 +1259,7 @@
     },
     "htmlwidgets": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1291,7 +1291,7 @@
     },
     "httpuv": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1324,7 +1324,7 @@
     },
     "httr": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1355,7 +1355,7 @@
     },
     "jsonlite": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1385,7 +1385,7 @@
     },
     "knitr": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1419,7 +1419,7 @@
     },
     "labeling": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1488,7 +1488,7 @@
     },
     "lattice": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1520,7 +1520,7 @@
     },
     "lazyeval": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1590,7 +1590,7 @@
     },
     "lubridate": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1626,7 +1626,7 @@
     },
     "magrittr": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1652,7 +1652,7 @@
     },
     "markdown": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1684,7 +1684,7 @@
     },
     "mgcv": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1713,7 +1713,7 @@
     },
     "mime": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1743,7 +1743,7 @@
     },
     "munsell": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1770,7 +1770,7 @@
     },
     "nlme": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1803,7 +1803,7 @@
     },
     "openssl": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1835,7 +1835,7 @@
     },
     "pillar": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1866,7 +1866,7 @@
     },
     "pkgconfig": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1894,7 +1894,7 @@
     },
     "plogr": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1924,7 +1924,7 @@
     },
     "plotly": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1955,7 +1955,7 @@
     },
     "plyr": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1987,7 +1987,7 @@
     },
     "prettyunits": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2015,7 +2015,7 @@
     },
     "progress": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2086,7 +2086,7 @@
     },
     "purrr": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2118,7 +2118,7 @@
     },
     "reshape2": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2190,7 +2190,7 @@
     },
     "rmarkdown": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2223,7 +2223,7 @@
     },
     "rprojroot": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2256,7 +2256,7 @@
     },
     "rstudioapi": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2285,7 +2285,7 @@
     },
     "scales": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2316,7 +2316,7 @@
     },
     "shiny": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2348,7 +2348,7 @@
     },
     "sourcetools": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2377,7 +2377,7 @@
     },
     "stringi": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2410,7 +2410,7 @@
     },
     "stringr": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2442,7 +2442,7 @@
     },
     "sys": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2473,7 +2473,7 @@
     },
     "tibble": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2506,7 +2506,7 @@
     },
     "tidyr": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2539,7 +2539,7 @@
     },
     "tidyselect": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2572,7 +2572,7 @@
     },
     "tinytex": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2603,7 +2603,7 @@
     },
     "utf8": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2633,7 +2633,7 @@
     },
     "uuid": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2658,7 +2658,7 @@
     },
     "vctrs": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2691,7 +2691,7 @@
     },
     "viridisLite": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2722,7 +2722,7 @@
     },
     "withr": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2755,7 +2755,7 @@
     },
     "xfun": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2787,7 +2787,7 @@
     },
     "xtable": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2817,7 +2817,7 @@
     },
     "yaml": {
       "Source": "RSPM",
-      "Repository": "https://demo.rstudiopm.com/all/__linux__/bionic/latest",
+      "Repository": "https://demo.rstudiopm.com/all/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2845,6 +2845,9 @@
     }
   },
   "files": {
+    "blastula_email.html": {
+      "checksum": "f49f7b36fd29f43ce664b3df663b38e0"
+    },
     "email-preview.png": {
       "checksum": "468c328207ed0fef7ac1e3c18f4fe76b"
     },
@@ -3116,13 +3119,13 @@
       "checksum": "5983649756aad5b4c28ef8b9ad20408b"
     },
     "packrat/packrat.lock": {
-      "checksum": "3c86ef642df9a8dc7a8c89ede11d664d"
+      "checksum": "a1e809ce8ef8036a0d8bbead3a6b9ef9"
     },
     "README.md": {
       "checksum": "cfadb6967b3ec696967bd104356cf65d"
     },
     "rsc-usage_email.html": {
-      "checksum": "1fab3e2da25033b5a79dd2e840acb461"
+      "checksum": "b39ea4b36777c0560578ea383ba225a2"
     },
     "rsc-usage.html": {
       "checksum": "702a72ff1f20db6db44f58841eefc43e"
@@ -3137,7 +3140,7 @@
       "checksum": "719cddca00abce0ba458e71307d8b7df"
     },
     "usage-email.Rmd": {
-      "checksum": "87e4ea9d7a52f1271b44e0c76afc2916"
+      "checksum": "6d1a774f4d0284dcdb51b30b8e1b8946"
     }
   },
   "users": null
