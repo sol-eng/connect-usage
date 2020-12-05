@@ -1,0 +1,12 @@
+name: app-usage2
+title: app-usage
+username: josiah
+account: josiah
+server: colorado.rstudio.com
+hostUrl: https://colorado.rstudio.com/rsc/__api__
+appId: 7908
+bundleId: 41861
+url: https://colorado.rstudio.com/rsc/content/7908/
+when: 1607197643.34657
+asMultiple: FALSE
+asStatic: FALSE

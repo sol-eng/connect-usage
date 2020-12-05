@@ -1,0 +1,13 @@
+name: app-usage
+title: app-usage
+username: josiah
+account: josiah
+server: colorado.rstudio.com
+hostUrl: https://colorado.rstudio.com/rsc/__api__
+appId: 7907
+bundleId: 41860
+url: https://colorado.rstudio.com/rsc/content/7907/
+when: 1607197125.7276
+asMultiple: TRUE
+asStatic: FALSE
+ignoredFiles: README.Rmd
