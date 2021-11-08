@@ -505,10 +505,11 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.9.3",
-      "Source": "Repository",
+      "Version": "0.14.0",
+      "OS_type": NA,
+      "NeedsCompilation": "no",
       "Repository": "RSPM",
-      "Hash": "c1a367437d8a8a44bec4b9d4974cb20c"
+      "Source": "Repository"
     },
     "reshape2": {
       "Package": "reshape2",
