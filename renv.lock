@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "3.6.2",
+    "Version": "3.6.3",
     "Repositories": [
       {
         "Name": "RSPM",
@@ -130,14 +130,15 @@
       "Package": "connectapi",
       "Version": "0.1.0.9005",
       "Source": "GitHub",
-      "Remotes": "slopp/webshot",
       "RemoteType": "github",
+      "Remotes": "slopp/webshot",
       "RemoteHost": "api.github.com",
       "RemoteRepo": "connectapi",
       "RemoteUsername": "rstudio",
       "RemoteRef": "master",
       "RemoteSha": "33b5acee89c865939d32de70907135067a8001a0",
-      "Hash": "85bb435e4fdcf61915408cdf768c54e5"
+      "Remotes.1": "slopp/webshot",
+      "Hash": "2f550f74685a8426143f86a854692bf2"
     },
     "crayon": {
       "Package": "crayon",
