@@ -68,7 +68,7 @@ content <- get_usage_static(
 
 all_users <- get_users(client, page_size = 500)
 
-data <-   list(shiny = shiny, content = content)
+data_arr <-   list(shiny = shiny, content = content)
 
 ```
 
@@ -89,7 +89,7 @@ Column
 ### Shiny Sessions by User (Top 5)
 
 ```{r shiny_by_user}
-data$shiny %>%
+data_arr$shiny %>%
     group_by(user_guid) %>% 
     summarise(visits = n()) %>% 
     left_join(all_users, by = c(user_guid = "guid")) %>%
@@ -112,7 +112,7 @@ data$shiny %>%
 ### Static Content Hits by User (Top 5)
 
 ```{r static_by_user}
-data$content %>%
+data_arr$content %>%
     group_by(user_guid) %>% 
     summarise(visits = n()) %>% 
     left_join(all_users, by = c(user_guid = "guid")) %>%
@@ -140,7 +140,7 @@ Column
 ### Shiny Sessions Over Time
 
 ```{r shiny_over_time}
-data$shiny %>%
+data_arr$shiny %>%
     mutate(day = round_date(started, "day")) %>% 
     group_by(day) %>% 
     filter(day > today() - ddays(days_back)) %>% 
@@ -162,7 +162,7 @@ data$shiny %>%
 ### Static Content Visits Over Time
 
 ```{r static_over_time}
-data$content %>%
+data_arr$content %>%
     mutate(time = ymd_hms(time),
           day = round_date(time, "day")) %>% 
     group_by(day) %>% 
@@ -187,7 +187,7 @@ Column
 ### Top Applications
 
 ```{r top_shiny}
-data$shiny %>% 
+data_arr$shiny %>% 
   group_by(content_guid) %>% 
   summarize(visits = n()) %>% 
   arrange(desc(visits)) %>% 
@@ -209,7 +209,7 @@ data$shiny %>%
 ### Top Static Content
 
 ```{r top_static}
-data$content %>% 
+data_arr$content %>% 
   group_by(content_guid) %>% 
   summarize(visits = n()) %>% 
   arrange(desc(visits)) %>% 
