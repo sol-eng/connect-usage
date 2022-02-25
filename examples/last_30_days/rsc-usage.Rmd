@@ -7,6 +7,10 @@ output:
     css: styles.css
 ---
 ```{r preflight_check, results='asis', include=TRUE}
+# ---------------------------------------------------------------------------
+# this section is used to stop the report from rendering
+# if important variables are missing (CONNECT_SERVER and CONNECT_API_KEY)
+# ---------------------------------------------------------------------------
 if (
   nchar(Sys.getenv("CONNECT_SERVER")) == 0 ||
   nchar(Sys.getenv("CONNECT_API_KEY")) == 0
@@ -76,8 +80,8 @@ data_arr <-   list(shiny = shiny, content = content)
 This content summary may contain privileged information. The report is generated
 using the [RStudio Connect Server API](http://docs.rstudio.com/connect/api) and
 the source code is [available online](https://github.com/sol-eng/connect-usage)
-if you'd like to customize your analysis. Data is limited to the last `r
-days_back` days.
+if you'd like to customize your analysis. Data is limited to the last 
+`r days_back` days.
 
 The report uses the environment variables `CONNECT_SERVER` and `CONNECT_API_KEY`
 to collect the data. To limit the results to a single publisher, use a publisher

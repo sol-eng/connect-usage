@@ -1,0 +1,179 @@
+---
+title: "RStudio Connect Data - Last `r as.numeric(Sys.getenv('DAYSBACK', 90))` Days"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    theme:
+      version: 4
+runtime: shiny
+---
+
+[Sourced from RinteRface/connectViz](https://github.com/RinteRface/connectViz)
+
+```{r setup, include=FALSE}
+#remotes::install_github("RinteRface/connectViz")
+library(connectapi) # Tested with 0.1.0.9031
+library(connectViz)
+library(dplyr)
+rsc_client <- create_rsc_client()
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE)
+
+days_back <- as.numeric(Sys.getenv("DAYSBACK", 90))
+cache_location <- Sys.getenv("MEMOISE_CACHE_LOCATION", tempdir())
+report_from <- lubridate::today() - lubridate::ddays(days_back)
+
+```
+
+```{r database}
+# Get raw data from RSC database
+get_apps_usage <- memoise::memoise(
+  get_usage_shiny, 
+  cache = memoise::cache_filesystem(cache_location)
+  )
+apps_usage <- get_apps_usage(rsc_client, from = report_from, limit = Inf)
+rsc_content <- rsc_client %>% get_content()
+rsc_users <- rsc_client %>% get_users(limit = Inf)
+publishers <- rsc_users %>% filter(user_role == "publisher") 
+shiny_apps <- rsc_content %>% filter(app_mode == "shiny")
+# TO DO
+# rsc_static <- rsc_client %>% get_usage_static(limit = Inf)
+```
+
+### General metrics
+
+```{r general-metric, message=FALSE}
+general_metrics <- list(
+  "Onboarded Users (n)" = nrow(rsc_users),
+  "Publishers (n)" = nrow(publishers),
+  "Deployments (n)" = nrow(rsc_content),
+  "Shiny Apps (n)" = nrow(shiny_apps)
+)
+shiny::fluidRow(
+  align = "center",
+  purrr::map(
+    seq_along(general_metrics),
+    function(i) {
+      
+      shinydashboard::infoBox(
+        value = general_metrics[[i]],
+        title = names(general_metrics)[[i]]
+      )
+    }
+  )
+)
+```
+
+### Shiny Apps usage
+
+#### Most used apps
+
+```{r}
+apps_ranking <- create_app_ranking(rsc_content, rsc_users, apps_usage)
+create_app_ranking_table(apps_ranking)
+```
+
+#### Daily app usage
+
+```{r}
+selectInput("selected_app", "Select an application", apps_ranking[[2]]$app_name)
+daily_app_usage <- get_app_daily_usage(apps_ranking[[2]], reactive(input$selected_app))
+create_app_daily_usage_chart(daily_app_usage)
+```
+
+#### Cumulated duration / user
+
+```{r duration-plot}
+create_cumulated_duration_per_user(apps_ranking[[1]], reactive(input$selected_app))
+```
+
+#### Number Hits / user
+
+```{r sessions-plot}
+create_cumulated_hits_per_user(apps_ranking[[1]], reactive(input$selected_app))
+```
+
+### Consumer data
+
+
+#### Consumer ranking
+```{r consumer-session-ranking}
+numericInput(
+  "views_threshold",
+  "N view threshold",
+  100,
+  min = 0
+)
+consumer_ranking <- create_apps_consumer_ranking(apps_usage, rsc_users, reactive(input$views_threshold))
+create_apps_consumer_ranking_chart(consumer_ranking)
+```
+
+#### Daily app consumption
+
+```{r daily-app-consumption-per-user}
+selectInput("selected_user", "Select an application", rsc_users$username)
+daily_consumption <- get_user_daily_consumption(rsc_content, rsc_users, apps_usage, reactive(input$selected_user))
+create_user_daily_consumption_chart(daily_consumption)
+```
+
+
+### Developers data
+
+
+#### Developers ranking (number of deployments: api, static, shiny, rmd, ...)
+
+```{r developers-ranking}
+developers_apps_ranking <- create_dev_ranking(rsc_users, rsc_content)
+numericInput(
+  "apps_threshold",
+  "N app threshold",
+  5,
+  min = 1,
+  max = developers_apps_ranking %>% pull(n_apps) %>% max()
+)
+create_dev_ranking_chart(developers_apps_ranking, reactive(input$apps_threshold))
+```
+
+#### Developer projects overview
+
+```{r}
+selectInput(
+  "app_developer",
+  "Select a developer",
+  developers_apps_ranking$username
+)
+create_dev_project_overview(developers_apps_ranking, rsc_client, apps_ranking[[1]], reactive(input$app_developer))
+```
+
+
+### Other data
+
+#### Users repartition (%)
+
+```{r user-repartition}
+# I realized some users are not active (ie active_time is NA).
+# Maybe to remove from the viz in the future?
+sort_users_by_role(rsc_users) %>% create_pie_chart("user_role")
+```
+
+#### Content access
+
+How do people protect their content?
+
+```{r content-access-type}
+sort_content_by_access(rsc_content) %>% create_pie_chart("access_type")
+```
+
+
+#### R versions
+
+What are the R versions used?
+
+```{r content-r-version}
+sort_content_by_rversion(rsc_content) %>% create_pie_chart("r_version")
+```
+
+#### Content type
+
+```{r content-type}
+sort_content_by_appmode(rsc_content) %>% create_pie_chart("app_mode")
+```
