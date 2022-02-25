@@ -8,4 +8,4 @@ visualizations of Connect usage data, maintained by a member of the community
 
 [Check out the README for more information!](https://github.com/RinteRface/connectViz)
 
-<center><img src="screen-shot.png" width = "400px" height = "400x"></center>
+<center><img src="screen-shot.png" width = "600px"></center>
