@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "3.6.2",
+    "Version": "3.6.3",
     "Repositories": [
       {
         "Name": "RSPM",
@@ -86,6 +86,20 @@
       "Repository": "RSPM",
       "Hash": "543776ae6848fde2f48ff3816d0628bc"
     },
+    "bit": {
+      "Package": "bit",
+      "Version": "4.0.4",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "f36715f14d94678eea9933af927bc15d"
+    },
+    "bit64": {
+      "Package": "bit64",
+      "Version": "4.0.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "9fe98599ca456d6552421db0d6772d8f"
+    },
     "blastula": {
       "Package": "blastula",
       "Version": "0.3.1.9000",
@@ -128,16 +142,15 @@
     },
     "connectapi": {
       "Package": "connectapi",
-      "Version": "0.1.0.9005",
+      "Version": "0.1.0.9030",
       "Source": "GitHub",
-      "Remotes": "slopp/webshot",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteRepo": "connectapi",
       "RemoteUsername": "rstudio",
-      "RemoteRef": "master",
-      "RemoteSha": "33b5acee89c865939d32de70907135067a8001a0",
-      "Hash": "85bb435e4fdcf61915408cdf768c54e5"
+      "RemoteRepo": "connectapi",
+      "RemoteRef": "bump-rsc-2021.10",
+      "RemoteSha": "95035931c3708d36721e89ca32db8f9243d46515",
+      "Hash": "bf5b6e233bbfd770dd023139e8ac4e76"
     },
     "crayon": {
       "Package": "crayon",
@@ -318,6 +331,13 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "7146fea4685b4252ebf478978c75f597"
+    },
+    "jquerylib": {
+      "Package": "jquerylib",
+      "Version": "0.1.4",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "5aab57a3bd297eee1c1d862735972182"
     },
     "jsonlite": {
       "Package": "jsonlite",
@@ -504,14 +524,11 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.9.3-58",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "rstudio",
-      "RemoteRepo": "renv",
-      "RemoteRef": "master",
-      "RemoteSha": "5f820844c3512e223b8272779ce0ecc308fce0e6"
+      "Version": "0.15.2",
+      "OS_type": NA,
+      "NeedsCompilation": "no",
+      "Repository": "RSPM",
+      "Source": "Repository"
     },
     "reshape2": {
       "Package": "reshape2",
@@ -522,22 +539,17 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "0.4.5",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "rlang",
-      "RemoteUsername": "r-lib",
-      "RemoteRef": "master",
-      "RemoteSha": "6592336a01dde4dc186d08d2483fb6b2ba58789b",
-      "Hash": "5d1c59a35f17504b049e37ee8beb053d"
+      "Version": "0.4.12",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "0879f5388fe6e4d56d7ef0b7ccb031e5"
     },
     "rmarkdown": {
       "Package": "rmarkdown",
-      "Version": "1.14",
+      "Version": "2.11",
       "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "4fbed732eb7f4f559a3540cf247e9286"
+      "Repository": "CRAN",
+      "Hash": "320017b52d05a943981272b295750388"
     },
     "rprojroot": {
       "Package": "rprojroot",
@@ -618,10 +630,10 @@
     },
     "tinytex": {
       "Package": "tinytex",
-      "Version": "0.20",
+      "Version": "0.35",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "d2cef450cbbf081b4a2ef1067fae9f32"
+      "Hash": "1d7220fe46159fb9f5c99a44354a2bff"
     },
     "utf8": {
       "Package": "utf8",
@@ -639,10 +651,10 @@
     },
     "vctrs": {
       "Package": "vctrs",
-      "Version": "0.2.2",
+      "Version": "0.3.8",
       "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "a1de558a76d2843a10f766209b9a545f"
+      "Repository": "CRAN",
+      "Hash": "ecf749a1b39ea72bd9b51b76292261f1"
     },
     "viridisLite": {
       "Package": "viridisLite",
@@ -660,10 +672,10 @@
     },
     "xfun": {
       "Package": "xfun",
-      "Version": "0.12",
+      "Version": "0.28",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "ccd8453a7b9e380628f6cd2862e46cad"
+      "Hash": "f7f3a61ab62cd046d307577a8ae12999"
     },
     "xtable": {
       "Package": "xtable",
