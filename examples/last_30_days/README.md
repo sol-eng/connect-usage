@@ -8,7 +8,10 @@ Sample Report: http://colorado.rstudio.com/rsc/usage
 
 <center><img src="email-preview.png" width = "400px" height = "400x"></center>
 
-The report is generated using the [RStudio Connect Server API](https://docs.rstudio.com/connect/api). The `helpers.R` file contains example code for querying the various API endpoints. The API and data collection are both available as of RStudio Connect 1.7.0. The API contains data to help answer questions like:
+The report is generated using the [RStudio Connect Server
+API](https://docs.rstudio.com/connect/api). The API and data collection are both
+available as of RStudio Connect 1.7.0. The API contains data to help answer
+questions like:
 
 - What content is most visited?
 - Who is visiting my content?
@@ -23,6 +26,8 @@ The report uses the environment variables `CONNECT_SERVER` and `CONNECT_API_KEY`
 ### Common Questions
 
 - Could this be a shiny app instead of a report? Of course! Let us know what you come up with.
-- Can I use the API from another language besides R? Absolutely, the API includes a spec to get you started.
-- Will you provide an R client for accessing the API? Please start a topic on [RStudio Community](https://community.rstudio.com/c/r-admin/rstudio-connect) (in the R Admins section) if this sounds interesting.
-- What is the `manifest.json` file? This file aids in programmatic deployments, a new RStudio Connect feature.
+- Can I use the API from another language besides R? Absolutely, [the API
+  includes a spec](https://docs.rstudio.com/connect/api) to get you started.
+- Will you provide an R client for accessing the API? Yes! It is called
+  [`connectapi`](https://github.com/rstudio/connectapi)
+- What is the `manifest.json` file? This file aids in programmatic or git-backed deployments
