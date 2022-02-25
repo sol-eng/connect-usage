@@ -8,14 +8,14 @@ default_content_title <- "Unknown (Deleted Content?)"
 ```
 
 ```{r custom_email}
-content_summary <- data$content %>% 
+content_summary <- data_arr$content %>% 
   group_by(content_guid) %>% 
   summarize(visits = n()) %>% 
   arrange(desc(visits)) %>% 
   head() %>% 
   mutate(name = purrr::map_chr(content_guid, ~ content_title(client, .x, default_content_title)))
 
-app_summary <- data$shiny %>% 
+app_summary <- data_arr$shiny %>% 
   group_by(content_guid) %>% 
   summarize(visits = n()) %>% 
   arrange(desc(visits)) %>% 

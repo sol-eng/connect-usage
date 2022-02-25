@@ -142,8 +142,8 @@ Column
 ```{r shiny_over_time}
 data_arr$shiny %>%
     mutate(day = round_date(started, "day")) %>% 
-    group_by(day) %>% 
     filter(day > today() - ddays(days_back)) %>% 
+    group_by(day) %>% 
     summarise(visits = n()) %>% 
     arrange(desc(visits)) %>% 
     {ggplot(., aes(day, visits)) + 
@@ -165,8 +165,8 @@ data_arr$shiny %>%
 data_arr$content %>%
     mutate(time = ymd_hms(time),
           day = round_date(time, "day")) %>% 
-    group_by(day) %>% 
     filter(day > today() - ddays(days_back)) %>% 
+    group_by(day) %>% 
     summarise(visits = n()) %>% 
     arrange(desc(visits)) %>% 
     {ggplot(., aes(day, visits)) + 
