@@ -504,10 +504,14 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.9.3",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "c1a367437d8a8a44bec4b9d4974cb20c"
+      "Version": "0.9.3-58",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "rstudio",
+      "RemoteRepo": "renv",
+      "RemoteRef": "master",
+      "RemoteSha": "5f820844c3512e223b8272779ce0ecc308fce0e6"
     },
     "reshape2": {
       "Package": "reshape2",
