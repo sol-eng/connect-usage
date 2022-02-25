@@ -4,18 +4,20 @@
 This repository illustrates several examples for getting started with
 the RStudio Connect usage data. The examples:
 
-  - [./examples/last\_30\_days](./examples/last_30_days)
+-   [./examples/last_30_days](./examples/last_30_days)
+-   [./examples/connectAnalytics](./examples/connectAnalytics)
+-   [./examples/connectViz](./examples/connectViz)
 
 The examples are generated using the [RStudio Connect Server
 API](https://docs.rstudio.com/connect/api). The API and data collection
 are both available as of RStudio Connect 1.7.0. The API contains data to
 help answer questions like:
 
-  - What content is most visited?
-  - Who is visiting my content?
-  - What reports are most common?
-  - Has viewership increased over time?
-  - Did my CEO actually visit this app?
+-   What content is most visited?
+-   Who is visiting my content?
+-   What reports are most common?
+-   Has viewership increased over time?
+-   Did my CEO actually visit this app?
 
 **A data science team’s time is precious, this data will help you focus
 and justify your efforts.**
@@ -57,14 +59,14 @@ shiny_rsc <- get_usage_shiny(
 glimpse(shiny_rsc)
 ```
 
-    ## Observations: 1,103
-    ## Variables: 6
-    ## $ content_guid     <chr> "8cbcb5a3-d491-4ad1-b307-b571c3c15b58", "5957cb…
-    ## $ user_guid        <chr> NA, "e6810648-1434-4821-b870-a58b076ed60b", NA,…
-    ## $ started          <dttm> 2020-02-04 00:02:00, 2020-02-04 00:20:13, 2020…
-    ## $ ended            <dttm> 2020-02-04 00:02:57, 2020-02-04 00:54:12, 2020…
-    ## $ data_version     <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
-    ## $ session_duration <drtn> 57 secs, 2039 secs, 59 secs, 21 secs, 56 secs,…
+    ## Rows: 285
+    ## Columns: 6
+    ## $ content_guid     <chr> "f59736fa-415d-410f-a161-5b7515e488e3", "eb77db7e-788…
+    ## $ user_guid        <chr> "ce40a7e2-3354-481f-b8fc-76705d729b55", "d06c9242-f4a…
+    ## $ started          <dttm> 2022-02-17 23:19:55, 2022-02-18 07:17:25, 2022-02-18…
+    ## $ ended            <dttm> 2022-02-18 00:08:29, 2022-02-18 07:48:26, 2022-02-18…
+    ## $ data_version     <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+    ## $ session_duration <drtn> 2914 secs, 1861 secs, 20 secs, 41 secs, 790 secs, 58…
 
 The identifiers used for the content in RStudio Connect are GUIDs. We
 can retrieve content names using the API. The API handles only one GUID
@@ -83,10 +85,10 @@ shiny_rsc_titles <- shiny_rsc %>%
 glimpse(shiny_rsc_titles)
 ```
 
-    ## Observations: 68
-    ## Variables: 2
-    ## $ content_guid <chr> "05e41a9e-d90d-4378-85f4-60bdfadadac7", "09bfa711-d…
-    ## $ content_name <chr> "Tracker Shiny App", "Bike Model Performance App", …
+    ## Rows: 47
+    ## Columns: 2
+    ## $ content_guid <chr> "0287f7d9-4d55-4813-8852-680f54beaad1", "06484fbb-f686-42…
+    ## $ content_name <chr> "Example Palmer Penguins Shiny Dashboard", "Classroom Stu…
 
 The new `shiny_rsc_titles` table, and the `shiny_rsc` can be joined to
 return the “user readable” title. Using standard `dplyr` and `ggplot2`
