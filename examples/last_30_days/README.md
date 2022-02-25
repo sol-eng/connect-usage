@@ -31,3 +31,7 @@ The report uses the environment variables `CONNECT_SERVER` and `CONNECT_API_KEY`
 - Will you provide an R client for accessing the API? Yes! It is called
   [`connectapi`](https://github.com/rstudio/connectapi)
 - What is the `manifest.json` file? This file aids in programmatic or git-backed deployments
+- What is the funky `preflight_check` chunk at the start of the report? If the
+  report is run without essential environment variables (`CONNECT_SERVER` and
+  `CONNECT_API_KEY`), this chunk will return a clear error message promptly rather than
+  waiting for the report to exit weirdly. It is there to protect you!
