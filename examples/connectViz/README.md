@@ -7,3 +7,5 @@ visualizations of Connect usage data, maintained by a member of the community
 `analysis.Rmd` is an example report using these helpers.
 
 [Check out the README for more information!](https://github.com/RinteRface/connectViz)
+
+<center><img src="screen-shot.png" width = "400px" height = "400x"></center>
