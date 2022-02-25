@@ -12,6 +12,8 @@ This repository illustrates several examples for getting started with the
 RStudio Connect usage data. The examples:
 
 - [./examples/last_30_days](./examples/last_30_days)
+- [./examples/connectAnalytics](./examples/connectAnalytics)
+- [./examples/connectViz](./examples/connectViz)
 
 The examples are generated using the [RStudio Connect Server
 API](https://docs.rstudio.com/connect/api). The API and data collection are both
