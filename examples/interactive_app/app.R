@@ -3,6 +3,7 @@ library(shinydashboard)
 library(apexcharter)
 library(connectapi)
 library(dplyr)
+library(shinycssloaders)
 
 client <- connect()
 
@@ -63,7 +64,9 @@ ui <- dashboardPage(
   dashboardSidebar(disable = TRUE, collapsed = TRUE),
   dashboardBody(
     fluidRow(
-      apexchartOutput("shiny_time")
+      shinycssloaders::withSpinner(
+        apexchartOutput("shiny_time")
+      )
     ),
     fluidRow(
       box(
