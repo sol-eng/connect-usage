@@ -65,7 +65,7 @@ server <- function(input, output) {
   output$shiny_realtime <- renderApexchart(
     apexchart(auto_update = TRUE) %>%
       ax_chart(type = "line") %>%
-      ax_title("By Minute") %>%
+      ax_title("Shiny Usage By Minute") %>%
       ax_plotOptions() %>%
       ax_series(list(
         name = "Count",
