@@ -12,6 +12,7 @@ This repository illustrates several examples for getting started with the
 RStudio Connect usage data. The examples:
 
 - [./examples/last_30_days](./examples/last_30_days)
+- [./examples/interactive_app](./examples/interactive_app)
 - [./examples/connectAnalytics](./examples/connectAnalytics)
 - [./examples/connectViz](./examples/connectViz)
 
