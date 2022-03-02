@@ -26,13 +26,35 @@ cached_usage_static <- memoise::memoise(
   omit_args = c("src") # BEWARE: cache can cross connect hosts if you change connect targets
 )
 
+# create alternate versions that have a date to invalidate the cache
+
+local_get_users <- function(client, date, limit, ...) {
+  connectapi::get_users(client, limit = limit, ...)
+}
+
+cached_get_users <- memoise::memoise(
+  local_get_users,
+  cache = memoise::cache_filesystem(cache_location),
+  omit_args = "client"
+)
+
+local_get_content <- function(client, date, ...) {
+  connectapi::get_content(client, ...)
+}
+
+cached_get_content <- memoise::memoise(
+  local_get_content,
+  cache = memoise::cache_filesystem(cache_location),
+  omit_args = "client"
+)
+
 # Data Fetch -------------------------------------------------------------
 
 # Must include "to" or the cache can get weird!!
 data_shiny <- cached_usage_shiny(client, from = report_from, to = report_to, limit = Inf)
 # data_static <- cached_usage_static(client, from = report_from, to = report_to, limit = Inf) # ~ 3 minutes on a busy server... 😱
-data_content <- get_content(client)
-data_users <- get_users(client, limit = Inf)
+data_content <- cached_get_content(client, date = report_to)
+data_users <- cached_get_users(client, date = report_to, limit = Inf)
 
 ui <- dashboardPage(
   dashboardHeader(
