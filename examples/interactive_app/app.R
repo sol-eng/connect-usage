@@ -2,6 +2,7 @@ library(shiny)
 library(shinydashboard)
 library(apexcharter)
 library(connectapi)
+library(dplyr)
 
 client <- connect()
 

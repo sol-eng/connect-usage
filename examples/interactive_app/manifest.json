@@ -420,25 +420,26 @@
       "description": {
         "Package": "cli",
         "Title": "Helpers for Developing Command Line Interfaces",
-        "Version": "3.0.1",
+        "Version": "3.2.0",
         "Authors@R": "c(\n    person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", c(\"aut\", \"cre\")),\n    person(\"Hadley\", \"Wickham\", role = c(\"ctb\")),\n    person(\"Kirill\", \"Müller\", role = c(\"ctb\")),\n    person(\"RStudio\", role = \"cph\")\n    )",
         "Description": "A suite of tools to build attractive command line interfaces\n    ('CLIs'), from semantic elements: headings, lists, alerts, paragraphs,\n    etc. Supports custom themes via a 'CSS'-like language. It also contains a\n    number of lower level 'CLI' elements: rules, boxes, trees, and\n    'Unicode' symbols with 'ASCII' alternatives. It support ANSI colors and\n    text styles as well.",
         "License": "MIT + file LICENSE",
         "URL": "https://cli.r-lib.org, https://github.com/r-lib/cli#readme",
         "BugReports": "https://github.com/r-lib/cli/issues",
-        "RoxygenNote": "7.1.1.9001",
+        "RoxygenNote": "7.1.2.9000",
         "Depends": "R (>= 2.10)",
-        "Imports": "glue, utils",
-        "Suggests": "callr, covr, grDevices, htmlwidgets, knitr, methods, mockery,\nprettycode (>= 1.1.0), processx, ps (>= 1.3.4.9000), rlang,\nrmarkdown, rstudioapi, shiny, testthat, tibble, withr",
+        "Imports": "glue (>= 1.6.0), utils",
+        "Suggests": "asciicast, callr, covr, digest, grDevices, htmltools,\nhtmlwidgets, knitr, methods, mockery, processx, ps (>=\n1.3.4.9000), rlang, rmarkdown, rstudioapi, shiny, testthat,\ntibble, whoami, withr",
         "Config/testthat/edition": "3",
+        "Config/Needs/website": "r-lib/asciicast, bench, brio, cpp11, decor, desc,\nfansi, sessioninfo, usethis, vctrs",
         "Encoding": "UTF-8",
         "NeedsCompilation": "yes",
-        "Packaged": "2021-07-16 20:08:00 UTC; gaborcsardi",
+        "Packaged": "2022-02-10 17:53:58 UTC; gaborcsardi",
         "Author": "Gábor Csárdi [aut, cre],\n  Hadley Wickham [ctb],\n  Kirill Müller [ctb],\n  RStudio [cph]",
         "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
         "Repository": "RSPM",
-        "Date/Publication": "2021-07-17 09:00:01 UTC",
-        "Built": "R 4.1.0; x86_64-pc-linux-gnu; 2021-07-19 12:35:56 UTC; unix"
+        "Date/Publication": "2022-02-14 10:10:11 UTC",
+        "Built": "R 4.1.0; x86_64-pc-linux-gnu; 2022-02-15 10:50:37 UTC; unix"
       }
     },
     "colorspace": {
@@ -2435,7 +2436,13 @@
   },
   "files": {
     "app.R": {
-      "checksum": "56ff21280b24f297b9ca910672cd15a6"
+      "checksum": "4f84698f529ca8b6ff6ce710cd940fb8"
+    },
+    "interactive-app-screenshot.png": {
+      "checksum": "b1ffff7391ea064a389a4eb07a5a6407"
+    },
+    "README.md": {
+      "checksum": "b640b295e3ce20378a1a07aacdf9dd2f"
     }
   },
   "users": null
