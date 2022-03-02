@@ -11,4 +11,6 @@ fetched once per day).
 We also use reactivity so that selecting the timeline will filter and re-render
 other charts accordingly.
 
+[Example Application Deployment](https://colorado.rstudio.com/rsc/usage-interactive/)
+
 <center><img src="interactive-app-screenshot.png" width = "600px"></center>
