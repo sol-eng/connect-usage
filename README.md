@@ -98,12 +98,12 @@ how long their average sessions are.
 ``` r
 # Calculate the average session duration and sort
 app_sessions <- shiny_rsc %>%
-  group_by(content_guid) %>%
+  inner_join(shiny_rsc_titles, by = "content_guid") %>%
+  group_by(content_name) %>%
   summarise(avg_session = mean(session_duration)) %>%
   ungroup() %>%
   arrange(desc(avg_session)) %>%
-  head(10) %>%
-  inner_join(shiny_rsc_titles, by = "content_guid") 
+  head(10)
   
 # Plot the top 10 used content
 app_sessions %>%
