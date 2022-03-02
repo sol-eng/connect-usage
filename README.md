@@ -5,6 +5,7 @@ This repository illustrates several examples for getting started with
 the RStudio Connect usage data. The examples:
 
 -   [./examples/last_30_days](./examples/last_30_days)
+-   [./examples/interactive_app](./examples/interactive_app)
 -   [./examples/connectAnalytics](./examples/connectAnalytics)
 -   [./examples/connectViz](./examples/connectViz)
 
@@ -59,14 +60,14 @@ shiny_rsc <- get_usage_shiny(
 glimpse(shiny_rsc)
 ```
 
-    ## Rows: 285
+    ## Rows: 336
     ## Columns: 6
-    ## $ content_guid     <chr> "f59736fa-415d-410f-a161-5b7515e488e3", "eb77db7e-788…
-    ## $ user_guid        <chr> "ce40a7e2-3354-481f-b8fc-76705d729b55", "d06c9242-f4a…
-    ## $ started          <dttm> 2022-02-17 23:19:55, 2022-02-18 07:17:25, 2022-02-18…
-    ## $ ended            <dttm> 2022-02-18 00:08:29, 2022-02-18 07:48:26, 2022-02-18…
+    ## $ content_guid     <chr> "dad2ac84-2450-4275-b26e-8e0d9d741100", "6f69884b-562…
+    ## $ user_guid        <chr> NA, NA, NA, NA, NA, NA, NA, "7defcf1b-69f6-4bc5-8b52-…
+    ## $ started          <dttm> 2022-02-23 01:54:12, 2022-02-23 03:17:46, 2022-02-23…
+    ## $ ended            <dttm> 2022-02-23 01:54:45, 2022-02-23 03:19:25, 2022-02-23…
     ## $ data_version     <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
-    ## $ session_duration <drtn> 2914 secs, 1861 secs, 20 secs, 41 secs, 790 secs, 58…
+    ## $ session_duration <drtn> 33 secs, 99 secs, 3685 secs, 61 secs, 59 secs, 51 se…
 
 The identifiers used for the content in RStudio Connect are GUIDs. We
 can retrieve content names using the API. The API handles only one GUID
@@ -85,7 +86,7 @@ shiny_rsc_titles <- shiny_rsc %>%
 glimpse(shiny_rsc_titles)
 ```
 
-    ## Rows: 47
+    ## Rows: 40
     ## Columns: 2
     ## $ content_guid <chr> "0287f7d9-4d55-4813-8852-680f54beaad1", "06484fbb-f686-42…
     ## $ content_name <chr> "Example Palmer Penguins Shiny Dashboard", "Classroom Stu…
@@ -98,12 +99,12 @@ how long their average sessions are.
 ``` r
 # Calculate the average session duration and sort
 app_sessions <- shiny_rsc %>%
-  group_by(content_guid) %>%
+  inner_join(shiny_rsc_titles, by = "content_guid") %>%
+  group_by(content_name) %>%
   summarise(avg_session = mean(session_duration)) %>%
   ungroup() %>%
   arrange(desc(avg_session)) %>%
-  head(10) %>%
-  inner_join(shiny_rsc_titles, by = "content_guid") 
+  head(10)
   
 # Plot the top 10 used content
 app_sessions %>%
