@@ -2003,6 +2003,37 @@
         "Built": "R 4.1.0; ; 2021-10-04 10:58:22 UTC; unix"
       }
     },
+    "shinycssloaders": {
+      "Source": "RSPM",
+      "Repository": "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "shinycssloaders",
+        "Type": "Package",
+        "Title": "Add Loading Animations to a 'shiny' Output While It's\nRecalculating",
+        "Version": "1.0.0",
+        "Authors@R": "c(\n    person(\"Andras\",\"Sali\",email=\"andras.sali@alphacruncher.hu\",role=c(\"aut\"),comment=\"Original creator of shinycssloaders package\"),\n    person(\"Luke\",\"Hass\",role=c(\"ctb\",\"cph\"),comment=\"Author of included CSS loader code\"),\n    person(\"Dean\",\"Attali\",email=\"daattali@gmail.com\",role=c(\"aut\",\"cre\"),comment=\"Maintainer of shinycssloaders since 2019\")\n    )",
+        "Description": "When a 'Shiny' output (such as a plot, table, map, etc.) is recalculating, it remains \n    visible but gets greyed out. Using 'shinycssloaders', you can add a loading animation (\"spinner\")\n    to outputs instead. By wrapping a 'Shiny' output in 'withSpinner()', a spinner will automatically\n    appear while the output is recalculating. See the demo online at\n    <https://daattali.com/shiny/shinycssloaders-demo/>.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://github.com/daattali/shinycssloaders",
+        "BugReports": "https://github.com/daattali/shinycssloaders/issues",
+        "Depends": "R (>= 3.1)",
+        "Imports": "digest, glue, grDevices, shiny",
+        "Suggests": "shinydisconnect, shinyjs",
+        "RoxygenNote": "7.1.0",
+        "Encoding": "UTF-8",
+        "NeedsCompilation": "no",
+        "Packaged": "2020-07-28 15:50:54 UTC; D",
+        "Author": "Andras Sali [aut] (Original creator of shinycssloaders package),\n  Luke Hass [ctb, cph] (Author of included CSS loader code),\n  Dean Attali [aut, cre] (Maintainer of shinycssloaders since 2019)",
+        "Maintainer": "Dean Attali <daattali@gmail.com>",
+        "Repository": "RSPM",
+        "Date/Publication": "2020-07-28 16:20:03 UTC",
+        "Built": "R 4.1.0; ; 2021-05-19 01:21:55 UTC; unix"
+      }
+    },
     "shinydashboard": {
       "Source": "RSPM",
       "Repository": "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest",
@@ -2436,13 +2467,13 @@
   },
   "files": {
     "app.R": {
-      "checksum": "4f84698f529ca8b6ff6ce710cd940fb8"
+      "checksum": "4ecac38ca7e15d385e645fd608687f89"
     },
     "interactive-app-screenshot.png": {
-      "checksum": "b1ffff7391ea064a389a4eb07a5a6407"
+      "checksum": "bc3c055a51f7751d78cfeee938b3b4fb"
     },
     "README.md": {
-      "checksum": "b640b295e3ce20378a1a07aacdf9dd2f"
+      "checksum": "55325a726efb642620dd39b88b457164"
     }
   },
   "users": null
