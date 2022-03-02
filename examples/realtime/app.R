@@ -6,8 +6,9 @@ library(tidyr)
 
 client <- connect()
 
-report_from <- lubridate::now() - lubridate::dhours(2)
-
+hours_back <- as.numeric(Sys.getenv("HOURS_BACK", 4))
+fetch_delay <- as.numeric(Sys.getenv("FETCH_DELAY_MS", 60000))
+report_from <- lubridate::now() - lubridate::dhours(hours_back)
 
 get_usage_cumulative <- function(client) {
   raw_data <- connectapi::get_usage_shiny(client, from = report_from, limit = Inf)
@@ -46,7 +47,10 @@ get_usage <- function(client) {
 }
 
 ui <- fluidPage(
-  apexchartOutput("shiny_realtime")
+  verticalLayout(
+    titlePanel("Real-Time Connect Usage"),
+    apexchartOutput("shiny_realtime")
+  )
 )
 
 server <- function(input, output) {
@@ -55,7 +59,7 @@ server <- function(input, output) {
   
   observe({
     data_today(get_usage_cumulative(client))
-    invalidateLater(10000)
+    invalidateLater(fetch_delay)
   })
   
   output$shiny_realtime <- renderApexchart(
