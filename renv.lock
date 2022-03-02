@@ -77,10 +77,10 @@
     },
     "apexcharter": {
       "Package": "apexcharter",
-      "Version": "0.3.0",
+      "Version": "0.3.1",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "24c6548111ec574558fe7e3122d75751",
+      "Hash": "d15a40c224bf3c1d8a32a0c12534d2c4",
       "Requirements": [
         "ggplot2",
         "htmltools",

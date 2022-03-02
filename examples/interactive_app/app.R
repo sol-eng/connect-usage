@@ -2,6 +2,7 @@ library(shiny)
 library(shinydashboard)
 library(apexcharter)
 library(connectapi)
+library(dplyr)
 
 client <- connect()
 
@@ -178,7 +179,7 @@ server <- function(input, output, session) {
       type = "bar", 
       mapping = aes(title, n)
     ) %>%
-      ax_title("By App") %>%
+      ax_title("By App (Top 20)") %>%
       set_input_click("content")
   )
   
@@ -188,7 +189,7 @@ server <- function(input, output, session) {
       type = "bar", 
       mapping = aes(username, n)
     ) %>%
-      ax_title("By Viewer") %>%
+      ax_title("By Viewer (Top 20)") %>%
       set_input_click("viewer")
   )
   
@@ -198,7 +199,7 @@ server <- function(input, output, session) {
       type = "bar", 
       mapping = aes(username, n)
     ) %>%
-      ax_title("By Owner") %>%
+      ax_title("By Owner (Top 20)") %>%
       set_input_click("owner")
   )
   
