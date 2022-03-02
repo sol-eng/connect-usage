@@ -12,6 +12,7 @@ report_from <- lubridate::today() - lubridate::ddays(days_back)
 report_to <- lubridate::today()
 
 # TODO: better way to do caching...?
+# TODO: add connect server URL to the cache_location
 cached_usage_shiny <- memoise::memoise(
   get_usage_shiny,
   cache = memoise::cache_filesystem(cache_location),
@@ -28,13 +29,15 @@ cached_usage_static <- memoise::memoise(
 
 # Must include "to" or the cache can get weird!!
 data_shiny <- cached_usage_shiny(client, from = report_from, to = report_to, limit = Inf)
-data_static <- cached_usage_static(client, from = report_from, to = report_to, limit = Inf) # ~ 3 minutes on a busy server... 😱
+# data_static <- cached_usage_static(client, from = report_from, to = report_to, limit = Inf) # ~ 3 minutes on a busy server... 😱
 data_content <- get_content(client)
 data_users <- get_users(client, limit = Inf)
 
 ui <- dashboardPage(
-  dashboardHeader(),
-  dashboardSidebar(),
+  dashboardHeader(
+    title = glue::glue("Shiny Usage - Last {days_back} Days"), titleWidth = "40%"
+  ),
+  dashboardSidebar(disable = TRUE, collapsed = TRUE),
   dashboardBody(
     fluidRow(
       apexchartOutput("shiny_time")
@@ -75,8 +78,9 @@ server <- function(input, output, session) {
   
 
   # Data Prep -------------------------------------------------------------
+  delay_duration <- 500
   
-  shiny_content <- reactive(
+  shiny_content <- debounce(reactive(
     data_shiny %>%
       safe_filter(min_date = minTime(), max_date = maxTime()) %>%
       group_by(content_guid) %>%
@@ -87,9 +91,9 @@ server <- function(input, output, session) {
       ) %>%
       filter(!is.na(title)) %>%
       arrange(desc(n))
-  )
+  ), delay_duration)
   
-  shiny_viewers <- reactive(
+  shiny_viewers <- debounce(reactive(
     data_shiny %>%
       safe_filter(min_date = minTime(), max_date = maxTime()) %>%
       group_by(user_guid) %>%
@@ -99,9 +103,10 @@ server <- function(input, output, session) {
         by = c(user_guid = "guid")
       ) %>%
       arrange(desc(n))
-  )
+  ), delay_duration)
   
-  shiny_owners <- reactive(
+  
+  shiny_owners <- debounce(reactive(
     data_shiny %>%
       safe_filter(min_date = minTime(), max_date = maxTime()) %>%
       left_join(
@@ -116,9 +121,9 @@ server <- function(input, output, session) {
         by = c(owner_guid = "guid")
       ) %>% 
       arrange(desc(n))
-  )
+  ), delay_duration)
   
-  shiny_over_time <- reactive(
+  shiny_over_time <- debounce(reactive(
     data_shiny %>%
       mutate(
         date = lubridate::as_date(lubridate::floor_date(started, "day")),
@@ -129,7 +134,7 @@ server <- function(input, output, session) {
         date_disp = format(date, format="%a %b %d %Y")
       ) %>%
       arrange(date)
-  )
+  ), delay_duration)
   
   # Observers for Selection ----------------------------------------------------------
   
@@ -155,6 +160,7 @@ server <- function(input, output, session) {
   output$shiny_time <- renderApexchart(
     apexchart(auto_update = FALSE) %>%
       ax_chart(type = "line") %>%
+      ax_title("By Date") %>%
       ax_plotOptions() %>%
       ax_series(list(
         name = "Count",
@@ -172,6 +178,7 @@ server <- function(input, output, session) {
       type = "bar", 
       mapping = aes(title, n)
     ) %>%
+      ax_title("By App") %>%
       set_input_click("content")
   )
   
@@ -181,6 +188,7 @@ server <- function(input, output, session) {
       type = "bar", 
       mapping = aes(username, n)
     ) %>%
+      ax_title("By Viewer") %>%
       set_input_click("viewer")
   )
   
@@ -190,6 +198,7 @@ server <- function(input, output, session) {
       type = "bar", 
       mapping = aes(username, n)
     ) %>%
+      ax_title("By Owner") %>%
       set_input_click("owner")
   )
   
