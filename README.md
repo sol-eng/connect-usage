@@ -6,6 +6,7 @@ the RStudio Connect usage data. The examples:
 
 -   [./examples/last_30_days](./examples/last_30_days)
 -   [./examples/interactive_app](./examples/interactive_app)
+-   [./examples/realtime](./examples/realtime)
 -   [./examples/connectAnalytics](./examples/connectAnalytics)
 -   [./examples/connectViz](./examples/connectViz)
 
