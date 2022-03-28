@@ -42,15 +42,16 @@ my_content <- all_content %>% filter(purrr::map_lgl(owner, ~ .[["guid"]] == my_g
 item_guid <- my_content[1,"guid"][[1]]
 
 
-get_bundles_size <- function(client, guid) {
-  message(glue::glue("Getting bundles for {guid}"))
+get_bundles_size <- function(client, guid, pb=NULL) {
+  if (!is.null(pb)) pb$tick()
   bundles_metadata <- get_bundles(content_item(client, guid))
   return(bundles_metadata[["size"]])
 }
 
+pb <- progress::progress_bar$new(total = nrow(my_content))
 my_content_bundles_size <- my_content %>% 
   select(guid, name, title, description) %>%
-  mutate(bundles = map(guid, ~ get_bundles_size(client, .x)))
+  mutate(bundles = map(guid, ~ get_bundles_size(client, .x, pb)))
 
 my_bundles_tall <- my_content_bundles_size %>% 
   select(guid, bundles) %>% 
