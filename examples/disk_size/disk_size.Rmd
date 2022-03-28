@@ -1,0 +1,83 @@
+---
+title: "bundle-diagnostics"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(purrr)
+library(connectapi)
+client <- connect()
+```
+
+## Enumerate Content List
+
+```{r}
+all_content <- get_content(client)
+
+unpublished_content <- all_content %>% filter(is.na(bundle_id))
+```
+
+
+## Get Bundles for a Piece of Content
+
+Beware:
+- This only works for content you are a "collaborator" on. In this example, we
+  only retrieve size data about the author's content (because it is easier to
+  filter on). `get_user_permission()` and `get_group_permission()` can be used to
+  figure out what content you are a collaborator on.
+- As an administrator, another approach is to "add yourself to content,"
+  "retrieve bundle data", then "remove yourself again". This will allow you to
+  retrieve all bundle data, but will take longer and will add many audit log
+  entries.
+- Further, it is worth noting that this takes _a while_, because you have to iterate
+  through each piece of content directly.
+- We will explore improvements to the Connect access model in the future to make such
+  reporting easier.
+
+```{r}
+my_guid <- client$me()$guid
+
+my_content <- all_content %>% filter(purrr::map_lgl(owner, ~ .[["guid"]] == my_guid))
+item_guid <- my_content[1,"guid"][[1]]
+
+
+get_bundles_size <- function(client, guid) {
+  message(glue::glue("Getting bundles for {guid}"))
+  bundles_metadata <- get_bundles(content_item(client, guid))
+  return(bundles_metadata[["size"]])
+}
+
+my_content_bundles_size <- my_content %>% 
+  select(guid, name, title, description) %>%
+  mutate(bundles = map(guid, ~ get_bundles_size(client, .x)))
+
+my_bundles_tall <- my_content_bundles_size %>% 
+  select(guid, bundles) %>% 
+  tidyr::unnest(bundles) %>% 
+  group_by(guid) %>% 
+  mutate(row=row_number())
+
+my_bundles_sum <- my_bundles_tall %>%
+  group_by(guid) %>%
+  summarize(total_size = sum(bundles), n = n())
+
+```
+
+## Summary of Sizes
+
+```{r}
+my_bundles_sum %>%
+  summarize(
+    n_content = n(), n_bundles = sum(n), total_size = sum(total_size),
+    avg_size_per_content = total_size / n_content, avg_size_per_bundle = total_size / n_bundles
+    )
+```
+
+## Top Content
+
+```{r}
+my_bundles_sum %>%
+  arrange(desc(total_size)) %>%
+  head(10)
+```
