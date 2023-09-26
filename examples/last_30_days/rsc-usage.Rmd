@@ -1,11 +1,21 @@
 ---
-title: "RStudio Connect Usage - Last `r as.numeric(Sys.getenv('DAYSBACK', 30))` Days"
+title: "Posit Connect Usage - Last `r as.numeric(Sys.getenv('DAYSBACK', 30))` Days"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
-    css: styles.css
+    theme: 
+      version: 4
+      bg: "#fff"
+      fg: "#447099" 
+      primary: "#447099"
+      #navbar-bg: "#447099"
+      base_font: 
+        google: Open Sans
+editor_options: 
+  chunk_output_type: console
 ---
+    
 ```{r preflight_check, results='asis', include=TRUE}
 # ---------------------------------------------------------------------------
 # this section is used to stop the report from rendering
@@ -35,7 +45,6 @@ if (
 ```{r setup, include=FALSE}
 library(flexdashboard)
 library(dplyr)
-library(DT)
 library(plotly)
 library(ggplot2)
 library(shiny)
@@ -43,8 +52,10 @@ library(lubridate)
 library(blastula)
 library(prettyunits)
 library(connectapi)
+library(thematic)
 
-source("themes.R")
+
+thematic::thematic_rmd(font = "Open Sans")
 
 days_back <- as.numeric(Sys.getenv("DAYSBACK", 30))
 
@@ -78,7 +89,7 @@ data_arr <-   list(shiny = shiny, content = content)
 
 
 This content summary may contain privileged information. The report is generated
-using the [RStudio Connect Server API](http://docs.rstudio.com/connect/api) and
+using the [Posit Connect Server API](http://docs.rstudio.com/connect/api) and
 the source code is [available online](https://github.com/sol-eng/connect-usage)
 if you'd like to customize your analysis. Data is limited to the last 
 `r days_back` days.
@@ -102,13 +113,13 @@ data_arr$shiny %>%
     arrange(desc(visits)) %>% 
     head(5) %>% 
     {ggplot(., aes(reorder(username, visits), visits)) + 
-     geom_bar(stat = "identity") +  
+     geom_bar(stat = "identity", fill="#72994E") +  
      coord_flip() + 
-     theme_rstudio() + 
+     theme_minimal() + 
      labs(
        y = "Number of Shiny Sessions",
        x = NULL
-     )} %>% 
+     ) + theme(legend.position="none")} %>% 
     ggplotly(tooltip = c("y")) %>% 
     config(displayModeBar = F)
 ```
@@ -125,13 +136,13 @@ data_arr$content %>%
     arrange(desc(visits)) %>% 
     head(5) %>% 
     {ggplot(., aes(reorder(username, visits), visits)) + 
-     geom_bar(stat = "identity") +  
+     geom_bar(stat = "identity", fill="#72994E") +  
      coord_flip() + 
-     theme_rstudio() +
+     theme_minimal() +
      labs(
        y = "Number of Content Visits",
        x = NULL
-     )} %>% 
+     ) + theme(legend.position="none")} %>% 
     ggplotly(tooltip = c("y")) %>% 
     config(displayModeBar = F)
 ```
@@ -153,11 +164,11 @@ data_arr$shiny %>%
     {ggplot(., aes(day, visits)) + 
      geom_point() +
      geom_smooth(se = FALSE) +
-     theme_rstudio() + 
+     theme_minimal() + 
      labs(
        y = "# of Shiny Sessions",
        x = NULL
-     )} %>% 
+     ) + theme(legend.position="none")} %>% 
     ggplotly(tooltip = c("y")) %>% 
     config(displayModeBar = F)
 ```
@@ -176,11 +187,11 @@ data_arr$content %>%
     {ggplot(., aes(day, visits)) + 
      geom_point() +
      geom_smooth(se = FALSE) +
-     theme_rstudio() + 
+     theme_minimal() + 
      labs(
        y = "Content Hits",
        x = NULL
-     )} %>% 
+     ) + theme(legend.position="none")} %>% 
     ggplotly(tooltip = c("y")) %>% 
     config(displayModeBar = F)
 ```
@@ -198,13 +209,13 @@ data_arr$shiny %>%
   head() %>% 
   mutate(name = purrr::map_chr(content_guid, ~ content_title(client, .x, default_content_title))) %>% 
   {ggplot(., aes(reorder(stringr::str_wrap(name, 30), visits), visits)) + 
-     geom_bar(stat = "identity") +  
+     geom_bar(stat = "identity", fill="#9A4665") +  
      coord_flip() + 
-     theme_rstudio() + 
+     theme_minimal() + 
      labs(
        y = "# of Shiny Sessions",
        x = NULL
-     )} %>% 
+     ) + theme(legend.position="none")} %>% 
     ggplotly(tooltip = c("y")) %>% 
     layout(margin = list(l = 0)) %>%
     config(displayModeBar = F)
@@ -217,16 +228,16 @@ data_arr$content %>%
   group_by(content_guid) %>% 
   summarize(visits = n()) %>% 
   arrange(desc(visits)) %>% 
-  head() %>%
+  head() %>% 
   mutate(name = purrr::map_chr(content_guid, ~ content_title(client, .x, default_content_title))) %>% 
   {ggplot(., aes(reorder(stringr::str_wrap(name, 30), visits), visits)) + 
-     geom_bar(stat = "identity") +  
+     geom_bar(stat = "identity", fill="#9A4665") +  
      coord_flip() + 
-     theme_rstudio() + 
+     theme_minimal() + 
      labs(
        y = "Content Hits",
        x = NULL
-     )} %>% 
+     ) + theme(legend.position="none")} %>% 
     ggplotly(tooltip = c("y")) %>% 
     layout(margin = list(l = 0)) %>%
     config(displayModeBar = F)
