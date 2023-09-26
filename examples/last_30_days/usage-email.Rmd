@@ -44,7 +44,7 @@ Here is the top viewed content for the last `r days_back` days:
 
 ```{r add_plot_prep}
 
-leaderboard
+blastula::add_ggplot(leaderboard)
 ```
 
 Best,
