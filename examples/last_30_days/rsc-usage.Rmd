@@ -53,6 +53,7 @@ library(blastula)
 library(prettyunits)
 library(connectapi)
 library(thematic)
+library(showtext)
 
 
 thematic::thematic_rmd(font = "Open Sans")
@@ -247,7 +248,6 @@ data_arr$content %>%
 ```{r render_custom_email}
 render_connect_email(input = "usage-email.Rmd") %>%
   attach_connect_email(
-    subject =  sprintf(" Content Usage Report For %s", month(today(), label = TRUE, abbr = FALSE)),
-    attach_output = TRUE
+    subject =  sprintf(" Content Usage Report For %s", month(today(), label = TRUE, abbr = FALSE))
   )
 ```
