@@ -68,7 +68,7 @@ client <- connect()
 shiny <- get_usage_shiny(
   client,
   from = report_from,
-  limit = 200
+  limit = Inf
 ) %>%
   mutate(
     started = lubridate::ymd_hms(started),
@@ -79,7 +79,7 @@ shiny <- get_usage_shiny(
 content <- get_usage_static(
   client,
   from = report_from,
-  limit = 200
+  limit = Inf
 )
 
 all_users <- get_users(client, page_size = 500)
