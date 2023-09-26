@@ -114,7 +114,7 @@ data_arr$shiny %>%
     arrange(desc(visits)) %>% 
     head(5) %>% 
     {ggplot(., aes(reorder(username, visits), visits)) + 
-     geom_bar(stat = "identity", fill="#419599") +  
+     geom_bar(stat = "identity", fill="#447099") +  
      coord_flip() + 
      theme_minimal() + 
      labs(
@@ -137,7 +137,7 @@ data_arr$content %>%
     arrange(desc(visits)) %>% 
     head(5) %>% 
     {ggplot(., aes(reorder(username, visits), visits)) + 
-     geom_bar(stat = "identity", fill="#419599") +  
+     geom_bar(stat = "identity", fill="#447099") +  
      coord_flip() + 
      theme_minimal() +
      labs(
@@ -210,7 +210,7 @@ data_arr$shiny %>%
   head() %>% 
   mutate(name = purrr::map_chr(content_guid, ~ content_title(client, .x, default_content_title))) %>% 
   {ggplot(., aes(reorder(stringr::str_wrap(name, 30), visits), visits)) + 
-     geom_bar(stat = "identity", fill="#9A4665") +  
+     geom_bar(stat = "identity", fill="#447099") +  
      coord_flip() + 
      theme_minimal() + 
      labs(
@@ -232,7 +232,7 @@ data_arr$content %>%
   head() %>% 
   mutate(name = purrr::map_chr(content_guid, ~ content_title(client, .x, default_content_title))) %>% 
   {ggplot(., aes(reorder(stringr::str_wrap(name, 30), visits), visits)) + 
-     geom_bar(stat = "identity", fill="#9A4665") +  
+     geom_bar(stat = "identity", fill="#447099") +  
      coord_flip() + 
      theme_minimal() + 
      labs(
