@@ -1,10 +1,14 @@
 ---
 title: "Content Usage Report"
 output: blastula::blastula_email
+editor_options: 
+  chunk_output_type: console
 ---
 ```{r setup_email, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 default_content_title <- "Unknown (Deleted Content?)"
+
+
 ```
 
 ```{r custom_email}
@@ -25,9 +29,9 @@ app_summary <- data_arr$shiny %>%
 leaderboard <- dplyr::bind_rows(app_summary, content_summary) %>%
   arrange(desc(visits)) %>%
   ggplot(., aes(reorder(name, visits), visits)) + 
-     geom_bar(stat = "identity") +  
+     geom_bar(stat = "identity", fill="#447099") +  
      coord_flip() + 
-     theme_rstudio() + 
+     theme_minimal() + 
      labs(
        y = "Visits",
        x = NULL
@@ -38,17 +42,11 @@ Hi Data Science Team!
 
 Here is the top viewed content for the last `r days_back` days:
 
-```{r add_plot_prep, message=FALSE, include=FALSE}
-img_path <- tempfile(fileext = ".png")
-png(img_path)
-leaderboard
-dev.off()
-```
+```{r add_plot_prep,  message=FALSE}
 
-```{r add_plot, results='asis'}
-htmltools::img(src = knitr::image_uri(img_path))
+blastula::add_ggplot(leaderboard)
 ```
 
 Best,
 
-RStudio Connect
+Posit Connect
